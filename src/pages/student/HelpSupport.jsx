@@ -4,6 +4,20 @@ import {
     getStudentTickets
 } from "../../services/SupportService";
 
+import {
+    FaLifeRing,
+    FaEnvelope,
+    FaPhoneAlt,
+    FaMapMarkerAlt,
+    FaPaperPlane,
+    FaClipboardList,
+    FaCheckCircle,
+    FaClock,
+    FaTimesCircle
+} from "react-icons/fa";
+
+import "./HelpSupport.css";
+
 function HelpSupport() {
 
     const studentId = localStorage.getItem("userId");
@@ -45,101 +59,161 @@ function HelpSupport() {
 
     return (
 
-        <div style={{ padding: "30px" }}>
+        <div className="support-container">
 
-            <h2>Help & Support</h2>
+            <h1>
+                <FaLifeRing /> Help & Support
+            </h1>
 
-            <hr />
+            <p className="subtitle">
+                Need assistance? Contact the Placement Cell or raise a support ticket.
+            </p>
 
-            <h3>Placement Cell</h3>
+            <div className="support-grid">
 
-            <p>Email : placement@college.edu</p>
+                <div className="contact-card">
 
-            <p>Phone : +91 9876543210</p>
+                    <h2>Placement Cell</h2>
 
-            <hr />
+                    <p>
+                        <FaEnvelope />
+                        placement@college.edu
+                    </p>
 
-            <h3>Raise Support Ticket</h3>
+                    <p>
+                        <FaPhoneAlt />
+                        +91 9876543210
+                    </p>
 
-            <form onSubmit={handleSubmit}>
+                    <p>
+                        <FaMapMarkerAlt />
+                        Placement Office, Admin Block
+                    </p>
 
-                <input
-                    type="text"
-                    placeholder="Subject"
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                    style={{
-                        width: "400px",
-                        padding: "10px",
-                        marginBottom: "10px"
-                    }}
-                    required
-                />
+                </div>
 
-                <br />
+                <div className="ticket-form-card">
 
-                <textarea
-                    rows="5"
-                    cols="60"
-                    placeholder="Describe your issue"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    required
-                />
+                    <h2>Raise Support Ticket</h2>
 
-                <br /><br />
+                    <form onSubmit={handleSubmit}>
 
-                <button type="submit">
+                        <input
+                            type="text"
+                            placeholder="Enter Subject"
+                            value={subject}
+                            onChange={(e) => setSubject(e.target.value)}
+                            required
+                        />
 
-                    Submit Ticket
+                        <textarea
+                            rows="5"
+                            placeholder="Describe your issue..."
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            required
+                        />
 
-                </button>
+                        <button type="submit">
 
-            </form>
+                            <FaPaperPlane />
 
-            <hr />
+                            Submit Ticket
 
-            <h3>My Support Tickets</h3>
+                        </button>
 
-            <table border="1" cellPadding="10">
+                    </form>
 
-                <thead>
+                </div>
 
-                    <tr>
+            </div>
 
-                        <th>Subject</th>
+            <h2 className="ticket-title">
 
-                        <th>Message</th>
+                <FaClipboardList />
 
-                        <th>Status</th>
+                My Support Tickets
 
-                    </tr>
+            </h2>
 
-                </thead>
+            {
 
-                <tbody>
+                tickets.length === 0 ?
 
-                    {
+                    <div className="empty-card">
 
-                        tickets.map(ticket => (
+                        No Support Tickets Found
 
-                            <tr key={ticket.id}>
+                    </div>
 
-                                <td>{ticket.subject}</td>
+                    :
 
-                                <td>{ticket.message}</td>
+                    tickets.map(ticket => (
 
-                                <td>{ticket.status}</td>
+                        <div
+                            key={ticket.id}
+                            className="ticket-card"
+                        >
 
-                            </tr>
+                            <h3>
 
-                        ))
+                                {ticket.subject}
 
-                    }
+                            </h3>
 
-                </tbody>
+                            <p>
 
-            </table>
+                                {ticket.message}
+
+                            </p>
+
+                            {
+
+                                ticket.status === "Resolved" &&
+
+                                <span className="resolved">
+
+                                    <FaCheckCircle />
+
+                                    Resolved
+
+                                </span>
+
+                            }
+
+                            {
+
+                                ticket.status === "Pending" &&
+
+                                <span className="pending">
+
+                                    <FaClock />
+
+                                    Pending
+
+                                </span>
+
+                            }
+
+                            {
+
+                                ticket.status === "Rejected" &&
+
+                                <span className="rejected">
+
+                                    <FaTimesCircle />
+
+                                    Rejected
+
+                                </span>
+
+                            }
+
+                        </div>
+
+                    ))
+
+            }
 
         </div>
 

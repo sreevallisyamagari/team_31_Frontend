@@ -1,3 +1,5 @@
+import "./Resume.css";
+
 import { useEffect, useState } from "react";
 import { getProfile } from "../../services/StudentService";
 import {
@@ -5,6 +7,14 @@ import {
     viewResume,
     downloadResume
 } from "../../services/ResumeService";
+
+import {
+    FaFilePdf,
+    FaUpload,
+    FaEye,
+    FaDownload,
+    FaCloudUploadAlt
+} from "react-icons/fa";
 
 function Resume() {
 
@@ -14,9 +24,7 @@ function Resume() {
     const studentId = localStorage.getItem("userId");
 
     useEffect(() => {
-
         loadProfile();
-
     }, []);
 
     const loadProfile = async () => {
@@ -39,7 +47,7 @@ function Resume() {
 
         if (!file) {
 
-            alert("Please select a file");
+            alert("Please select a resume");
 
             return;
 
@@ -53,9 +61,13 @@ function Resume() {
 
             loadProfile();
 
+            setFile(null);
+
         } catch (error) {
 
             console.log(error);
+
+            alert("Upload Failed");
 
         }
 
@@ -63,55 +75,121 @@ function Resume() {
 
     return (
 
-        <div style={{ padding: "30px" }}>
+        <div className="resume-container">
 
-            <h2>My Resume</h2>
+            <div className="resume-card">
 
-            <hr />
+                <FaFilePdf className="resume-icon"/>
 
-            <h3>Current Resume</h3>
+                <h1>My Resume</h1>
 
-            <p>
+                <p>
 
-                {profile.resume
-                    ? profile.resume
-                    : "No Resume Uploaded"}
+                    Upload your latest resume for placement drives.
 
-            </p>
+                </p>
 
-            <br />
+                <div className="resume-info">
 
-            <button
-                onClick={() =>
-                    window.open(viewResume(studentId), "_blank")
+                    <strong>Current Resume</strong>
+
+                    <span>
+
+                        {
+
+                            profile.resume
+
+                                ? profile.resume
+
+                                : "No Resume Uploaded"
+
+                        }
+
+                    </span>
+
+                </div>
+
+                <div className="resume-buttons">
+
+                    <button
+                        className="view-btn"
+                        onClick={() =>
+                            window.open(viewResume(studentId), "_blank")
+                        }
+                    >
+
+                        <FaEye/>
+
+                        View
+
+                    </button>
+
+                    <button
+                        className="download-btn"
+                        onClick={() =>
+                            window.open(downloadResume(studentId))
+                        }
+                    >
+
+                        <FaDownload/>
+
+                        Download
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div className="upload-card">
+
+                <FaCloudUploadAlt className="upload-icon"/>
+
+                <h2>Upload New Resume</h2>
+
+                <p>
+
+                    Supported formats: PDF, DOC, DOCX
+
+                </p>
+
+                <input
+                    type="file"
+                    onChange={(e) => setFile(e.target.files[0])}
+                />
+
+                {
+
+                    file && (
+
+                        <div className="selected-file">
+
+                            Selected File:
+
+                            <strong>
+
+                                {file.name}
+
+                            </strong>
+
+                        </div>
+
+                    )
+
                 }
-            >
-                View Resume
-            </button>
 
-            <button
-                style={{ marginLeft: "10px" }}
-                onClick={() =>
-                    window.open(downloadResume(studentId))
-                }
-            >
-                Download Resume
-            </button>
+                <button
+                    className="upload-btn"
+                    onClick={handleUpload}
+                >
 
-            <br /><br />
+                    <FaUpload/>
 
-            <input
-                type="file"
-                onChange={(e) => setFile(e.target.files[0])}
-            />
+                    Upload Resume
 
-            <br /><br />
+                </button>
 
-            <button onClick={handleUpload}>
-
-                Replace Resume
-
-            </button>
+            </div>
 
         </div>
 

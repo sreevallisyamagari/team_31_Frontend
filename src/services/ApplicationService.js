@@ -3,8 +3,11 @@ import axios from "axios";
 const BASE_URL = "http://localhost:8080/api/applications";
 
 // Student Apply
-export const applyJob = (application) => {
-    return axios.post(BASE_URL, application);
+export const applyJob = (studentId, driveId) => {
+    return axios.post(BASE_URL, {
+        studentId,
+        driveId
+    });
 };
 
 // View All Applications
@@ -20,6 +23,11 @@ export const getStudentApplications = (studentId) => {
 // Drive Applications
 export const getDriveApplications = (driveId) => {
     return axios.get(`${BASE_URL}/drive/${driveId}`);
+};
+
+// Applications By Status
+export const getApplicationsByStatus = (status) => {
+    return axios.get(`${BASE_URL}/status/${status}`);
 };
 
 // Update Status

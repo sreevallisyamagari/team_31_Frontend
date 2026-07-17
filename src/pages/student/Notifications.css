@@ -1,0 +1,143 @@
+.notification-container{
+
+    padding:30px;
+
+}
+
+.notification-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    margin-bottom:30px;
+
+}
+
+.bell-icon{
+
+    font-size:55px;
+
+    color:#2563eb;
+
+}
+
+.notification-header h1{
+
+    color:#1e293b;
+
+    margin-bottom:6px;
+
+}
+
+.notification-header p{
+
+    color:#64748b;
+
+}
+
+.notification-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.notification-card{
+
+    background:white;
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:20px;
+
+    padding:22px;
+
+    border-radius:16px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.notification-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 12px 25px rgba(37,99,235,.15);
+
+}
+
+.notification-icon{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:22px;
+
+}
+
+.notification-content{
+
+    flex:1;
+
+}
+
+.notification-content h3{
+
+    color:#1e293b;
+
+    margin-bottom:8px;
+
+}
+
+.notification-content p{
+
+    color:#475569;
+
+    margin-bottom:10px;
+
+    line-height:1.5;
+
+}
+
+.notification-content span{
+
+    color:#94a3b8;
+
+    font-size:14px;
+
+}
+
+@media(max-width:768px){
+
+    .notification-card{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+}

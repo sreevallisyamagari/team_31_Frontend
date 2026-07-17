@@ -1,9 +1,21 @@
+import "./MyApplications.css";
+
 import { useEffect, useState } from "react";
 import { getStudentApplications } from "../../services/ApplicationService";
+
+import {
+    FaClipboardCheck,
+    FaSearch,
+    FaCheckCircle,
+    FaClock,
+    FaTimesCircle,
+    FaAward
+} from "react-icons/fa";
 
 function MyApplications() {
 
     const [applications, setApplications] = useState([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         loadApplications();
@@ -29,80 +41,149 @@ function MyApplications() {
 
     };
 
+    const filteredApplications = applications.filter((application) =>
+        application.id.toString().includes(search) ||
+        application.driveId.toString().includes(search) ||
+        application.status.toLowerCase().includes(search.toLowerCase())
+    );
+
+    const getStatusClass = (status) => {
+
+        switch (status.toLowerCase()) {
+
+            case "selected":
+                return "status selected";
+
+            case "shortlisted":
+                return "status shortlisted";
+
+            case "rejected":
+                return "status rejected";
+
+            default:
+                return "status pending";
+        }
+
+    };
+
+    const getStatusIcon = (status) => {
+
+        switch (status.toLowerCase()) {
+
+            case "selected":
+                return <FaAward />;
+
+            case "shortlisted":
+                return <FaCheckCircle />;
+
+            case "rejected":
+                return <FaTimesCircle />;
+
+            default:
+                return <FaClock />;
+        }
+
+    };
+
     return (
 
-        <div style={{ padding: "30px" }}>
+        <div className="applications-container">
 
-            <h2>My Applications</h2>
+            <h1>My Applications</h1>
 
-            <hr />
+            <p>Track all your placement applications in one place.</p>
 
-            <table
-                border="1"
-                cellPadding="10"
-                style={{
-                    width: "100%",
-                    borderCollapse: "collapse"
-                }}
-            >
+            <div className="search-box">
 
-                <thead>
+                <FaSearch />
 
-                    <tr>
+                <input
+                    type="text"
+                    placeholder="Search by Application ID, Drive ID or Status..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
 
-                        <th>Application ID</th>
+            </div>
 
-                        <th>Drive ID</th>
+            <div className="applications-grid">
 
-                        <th>Status</th>
+                {
 
-                    </tr>
+                    filteredApplications.length > 0 ? (
 
-                </thead>
+                        filteredApplications.map((application) => (
 
-                <tbody>
+                            <div
+                                className="application-card"
+                                key={application.id}
+                            >
 
-                    {
+                                <div className="application-header">
 
-                        applications.length > 0 ? (
+                                    <FaClipboardCheck className="application-icon"/>
 
-                            applications.map((application) => (
+                                    <div>
 
-                                <tr key={application.id}>
+                                        <h2>Application #{application.id}</h2>
 
-                                    <td>{application.id}</td>
+                                        <p>Drive ID : {application.driveId}</p>
 
-                                    <td>{application.driveId}</td>
+                                    </div>
 
-                                    <td>{application.status}</td>
+                                </div>
 
-                                </tr>
+                                <div className="application-body">
 
-                            ))
+                                    <div>
 
-                        ) : (
+                                        <strong>Application ID</strong>
 
-                            <tr>
+                                        <span>{application.id}</span>
 
-                                <td
-                                    colSpan="3"
-                                    style={{
-                                        textAlign: "center",
-                                        padding: "20px"
-                                    }}
-                                >
-                                    No Applications Found
-                                </td>
+                                    </div>
 
-                            </tr>
+                                    <div>
 
-                        )
+                                        <strong>Drive ID</strong>
 
-                    }
+                                        <span>{application.driveId}</span>
 
-                </tbody>
+                                    </div>
 
-            </table>
+                                    <div>
+
+                                        <strong>Status</strong>
+
+                                        <span className={getStatusClass(application.status)}>
+
+                                            {getStatusIcon(application.status)}
+
+                                            {application.status}
+
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        ))
+
+                    ) : (
+
+                        <div className="no-data">
+
+                            No Applications Found
+
+                        </div>
+
+                    )
+
+                }
+
+            </div>
 
         </div>
 

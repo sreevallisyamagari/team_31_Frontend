@@ -1,14 +1,25 @@
+import "./Profile.css";
+
 import { useEffect, useState } from "react";
 import { getProfile } from "../../services/StudentService";
+
+import {
+    FaUserCircle,
+    FaEnvelope,
+    FaPhone,
+    FaGraduationCap,
+    FaChartLine,
+    FaExclamationCircle,
+    FaFilePdf,
+    FaUserEdit
+} from "react-icons/fa";
 
 function Profile() {
 
     const [profile, setProfile] = useState({});
 
     useEffect(() => {
-
         loadProfile();
-
     }, []);
 
     const loadProfile = async () => {
@@ -31,25 +42,99 @@ function Profile() {
 
     return (
 
-        <div style={{ padding: "30px" }}>
+        <div className="profile-container">
 
-            <h2>Student Profile</h2>
+            <div className="profile-header">
 
-            <hr />
+                <FaUserCircle className="profile-avatar" />
 
-            <p><b>Name:</b> {profile.name}</p>
+                <h1>{profile.name || "Student Name"}</h1>
 
-            <p><b>Email:</b> {profile.email}</p>
+                <p>{profile.department || "Department"}</p>
 
-            <p><b>Department:</b> {profile.department}</p>
+            </div>
 
-            <p><b>CGPA:</b> {profile.cgpa}</p>
+            <div className="profile-grid">
 
-            <p><b>Backlogs:</b> {profile.backlogs}</p>
+                <div className="profile-card">
 
-            <p><b>Phone:</b> {profile.phone}</p>
+                    <h3>Personal Information</h3>
 
-            <p><b>Resume:</b> {profile.resume}</p>
+                    <div className="profile-item">
+
+                        <FaEnvelope />
+
+                        <span>{profile.email}</span>
+
+                    </div>
+
+                    <div className="profile-item">
+
+                        <FaPhone />
+
+                        <span>{profile.phone}</span>
+
+                    </div>
+
+                </div>
+
+                <div className="profile-card">
+
+                    <h3>Academic Information</h3>
+
+                    <div className="profile-item">
+
+                        <FaGraduationCap />
+
+                        <span>{profile.department}</span>
+
+                    </div>
+
+                    <div className="profile-item">
+
+                        <FaChartLine />
+
+                        <span>CGPA : {profile.cgpa}</span>
+
+                    </div>
+
+                    <div className="profile-item">
+
+                        <FaExclamationCircle />
+
+                        <span>Backlogs : {profile.backlogs}</span>
+
+                    </div>
+
+                </div>
+
+                <div className="profile-card">
+
+                    <h3>Resume</h3>
+
+                    <div className="profile-item">
+
+                        <FaFilePdf />
+
+                        <span>
+
+                            {profile.resume ? profile.resume : "Resume Not Uploaded"}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button className="edit-btn">
+
+                <FaUserEdit />
+
+                Edit Profile
+
+            </button>
 
         </div>
 

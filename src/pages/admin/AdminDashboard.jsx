@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
 import {
     FaUsers,
     FaBuilding,
@@ -9,12 +7,9 @@ import {
 } from "react-icons/fa";
 
 import { getDashboard } from "../../services/AdminService";
-import AdminNavbar from "../../components/AdminNavbar";
 import DashboardCard from "../../components/DashboardCard";
 
 function AdminDashboard() {
-
-    const navigate = useNavigate();
 
     const [dashboard, setDashboard] = useState({
         totalStudents: 0,
@@ -42,218 +37,52 @@ function AdminDashboard() {
 
     };
 
-    const logout = () => {
-
-        localStorage.clear();
-
-        navigate("/");
-
-    };
-
     return (
 
-        <div
-            style={{
-                display: "flex",
-                height: "100vh",
-                background: "#f5f7fb"
-            }}
-        >
+        <>
 
-            {/* Sidebar */}
+            <h2>Admin Dashboard</h2>
 
             <div
                 style={{
-                    width: "260px",
-                    background: "#0f172a",
-                    color: "white",
-                    padding: "20px"
+                    display: "flex",
+                    gap: "20px",
+                    flexWrap: "wrap",
+                    marginTop: "20px"
                 }}
             >
 
-                <h2 style={{ textAlign: "center" }}>
-                    Placement Portal
-                </h2>
+                <DashboardCard
+                    title="Total Students"
+                    value={dashboard.totalStudents}
+                    color="#2563eb"
+                    icon={<FaUsers color="#2563eb" />}
+                />
 
-                <hr />
+                <DashboardCard
+                    title="Company Drives"
+                    value={dashboard.totalDrives}
+                    color="#22c55e"
+                    icon={<FaBuilding color="#22c55e" />}
+                />
 
-                <p>
-                    <Link
-                        to="/admin"
-                        style={{ color: "white", textDecoration: "none" }}
-                    >
-                        🏠 Dashboard
-                    </Link>
-                </p>
+                <DashboardCard
+                    title="Applications"
+                    value={dashboard.totalApplications}
+                    color="#f59e0b"
+                    icon={<FaFileAlt color="#f59e0b" />}
+                />
 
-                <p>
-                    <Link
-                        to="/company-drives"
-                        style={{ color: "white", textDecoration: "none" }}
-                    >
-                        💼 Manage Drives
-                    </Link>
-                </p>
-
-                <p>
-                    <Link
-                        to="/applications-admin"
-                        style={{ color: "white", textDecoration: "none" }}
-                    >
-                        📄 Applications
-                    </Link>
-                </p>
-
-                <p>
-                    <Link
-                        to="/eligible-students"
-                        style={{ color: "white", textDecoration: "none" }}
-                    >
-                        👨‍🎓 Eligible Students
-                    </Link>
-                </p>
-
-                <p>
-                    <Link
-                        to="/shortlisting"
-                        style={{ color: "white", textDecoration: "none" }}
-                    >
-                        ⭐ Shortlisting
-                    </Link>
-                </p>
-
-                <p>
-                    <Link
-                        to="/selected-students"
-                        style={{ color: "white", textDecoration: "none" }}
-                    >
-                        🏆 Selected List
-                    </Link>
-                </p>
-
-                <p>
-                    <Link
-                        to="/students"
-                        style={{ color: "white", textDecoration: "none" }}
-                    >
-                        👥 Students
-                    </Link>
-                </p>
-
-                <p>
-                    <Link
-                        to="/support-tickets"
-                        style={{ color: "white", textDecoration: "none" }}
-                    >
-                        🛠 Support Tickets
-                    </Link>
-                </p>
-
-                <p>
-                    <Link
-                        to="/reports"
-                        style={{ color: "white", textDecoration: "none" }}
-                    >
-                        📊 Reports
-                    </Link>
-                </p>
-
-                <p>
-                    <Link
-                        to="/notifications-admin"
-                        style={{ color: "white", textDecoration: "none" }}
-                    >
-                        🔔 Notifications
-                    </Link>
-                </p>
-
-                <p>
-                    <Link
-                        to="/settings"
-                        style={{ color: "white", textDecoration: "none" }}
-                    >
-                        ⚙ Settings
-                    </Link>
-                </p>
-
-                <button
-                    onClick={logout}
-                    style={{
-                        width: "100%",
-                        marginTop: "30px",
-                        padding: "12px",
-                        background: "#dc2626",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "8px",
-                        cursor: "pointer"
-                    }}
-                >
-                    Logout
-                </button>
+                <DashboardCard
+                    title="Selected Students"
+                    value="0"
+                    color="#ef4444"
+                    icon={<FaUserCheck color="#ef4444" />}
+                />
 
             </div>
 
-            {/* Main Content */}
-
-            <div
-                style={{
-                    flex: 1,
-                    overflowY: "auto"
-                }}
-            >
-
-                <AdminNavbar />
-
-                <div
-                    style={{
-                        padding: "30px"
-                    }}
-                >
-
-                    <div
-                        style={{
-                            display: "flex",
-                            gap: "20px",
-                            flexWrap: "wrap"
-                        }}
-                    >
-
-                        <DashboardCard
-                            title="Total Students"
-                            value={dashboard.totalStudents}
-                            color="#2563eb"
-                            icon={<FaUsers color="#2563eb" />}
-                        />
-
-                        <DashboardCard
-                            title="Company Drives"
-                            value={dashboard.totalDrives}
-                            color="#22c55e"
-                            icon={<FaBuilding color="#22c55e" />}
-                        />
-
-                        <DashboardCard
-                            title="Applications"
-                            value={dashboard.totalApplications}
-                            color="#f59e0b"
-                            icon={<FaFileAlt color="#f59e0b" />}
-                        />
-
-                        <DashboardCard
-                            title="Selected Students"
-                            value="0"
-                            color="#ef4444"
-                            icon={<FaUserCheck color="#ef4444" />}
-                        />
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
+        </>
 
     );
 

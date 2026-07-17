@@ -1,132 +1,249 @@
-import { Link, useNavigate } from "react-router-dom";
+import "./StudentDashboard.css";
+
+import {
+    FaBriefcase,
+    FaBuilding,
+    FaClipboardCheck,
+    FaAward,
+    FaBell,
+    FaUserGraduate
+} from "react-icons/fa";
 
 function StudentDashboard() {
-
-    const navigate = useNavigate();
-
-    const logout = () => {
-
-        localStorage.clear();
-
-        navigate("/");
-
-    };
 
     const userName = localStorage.getItem("userName");
 
     return (
 
-        <div style={{ display: "flex", height: "100vh" }}>
+        <div className="dashboard-container">
 
-            {/* Sidebar */}
+            {/* Statistics */}
 
-            <div
-                style={{
-                    width: "250px",
-                    background: "#1e3a8a",
-                    color: "white",
-                    padding: "20px"
-                }}
-            >
+            <div className="stats-grid">
 
-                <h2>Student</h2>
+                <div className="stat-card">
 
-                <hr />
+                    <FaBriefcase className="stat-icon" />
 
-                <p>
-                    <Link to="/student" style={{ color: "white", textDecoration: "none" }}>
-                        Dashboard
-                    </Link>
-                </p>
+                    <h2>8</h2>
 
-                <p>
-                    <Link to="/drives" style={{ color: "white", textDecoration: "none" }}>
-                        Company Drives
-                    </Link>
-                </p>
+                    <p>Applied Jobs</p>
 
-                <p>
-                    <Link to="/applications" style={{ color: "white", textDecoration: "none" }}>
-                        My Applications
-                    </Link>
-                </p>
+                </div>
 
-                <p>
-                    <Link to="/profile" style={{ color: "white", textDecoration: "none" }}>
-                        Profile
-                    </Link>
-                </p>
+                <div className="stat-card">
 
-                <p>
-                    <Link to="/resume" style={{ color: "white", textDecoration: "none" }}>
-                        My Resume
-                    </Link>
-                </p>
+                    <FaBuilding className="stat-icon" />
 
-                <p>
-                    <Link to="/notifications" style={{ color: "white", textDecoration: "none" }}>
-                        Notifications
-                    </Link>
-                </p>
+                    <h2>5</h2>
 
-                <p>
-                    <Link to="/results" style={{ color: "white", textDecoration: "none" }}>
-                        Placement Results
-                    </Link>
-                </p>
+                    <p>Eligible Drives</p>
 
-                {/* NEW */}
-                <p>
-                    <Link to="/help" style={{ color: "white", textDecoration: "none" }}>
-                        Help & Support
-                    </Link>
-                </p>
+                </div>
 
-                <button
-                    onClick={logout}
-                    style={{
-                        marginTop: "20px",
-                        width: "100%",
-                        padding: "10px",
-                        cursor: "pointer",
-                        background: "#dc2626",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "5px"
-                    }}
-                >
-                    Logout
-                </button>
+                <div className="stat-card">
 
+                    <FaClipboardCheck className="stat-icon" />
 
+                    <h2>3</h2>
+
+                    <p>Upcoming Drives</p>
+
+                </div>
+
+                <div className="stat-card">
+
+                    <FaAward className="stat-icon" />
+
+                    <h2>1</h2>
+
+                    <p>Selected</p>
+
+                </div>
 
             </div>
 
-            {/* Content */}
+            {/* Upcoming Placement Drives */}
 
-            <div
-                style={{
-                    flex: 1,
-                    padding: "30px",
-                    background: "#f5f5f5"
-                }}
-            >
+            <div className="drives-card">
 
-                <h1>Student Dashboard</h1>
+                <h3>
 
-                <h3>Welcome, {userName}</h3>
+                    <FaBuilding />
 
-                <hr />
+                    Upcoming Placement Drives
 
-                <p>Use the menu on the left to:</p>
+                </h3>
 
-                <ul>
-                    <li>View Company Drives</li>
-                    <li>Apply for Drives</li>
-                    <li>View My Applications</li>
-                    <li>Check Placement Results</li>
-                    <li>Update Your Profile</li>
-                </ul>
+                <table className="drive-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Company</th>
+
+                            <th>Role</th>
+
+                            <th>Package</th>
+
+                            <th>Last Date</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>TCS</td>
+
+                            <td>Assistant System Engineer</td>
+
+                            <td>3.5 LPA</td>
+
+                            <td>20 Jul 2026</td>
+
+                            <td>
+
+                                <button className="apply-btn">
+
+                                    Apply
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Infosys</td>
+
+                            <td>System Engineer</td>
+
+                            <td>4.2 LPA</td>
+
+                            <td>24 Jul 2026</td>
+
+                            <td>
+
+                                <button className="apply-btn">
+
+                                    Apply
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Wipro</td>
+
+                            <td>Project Engineer</td>
+
+                            <td>4 LPA</td>
+
+                            <td>29 Jul 2026</td>
+
+                            <td>
+
+                                <button className="apply-btn">
+
+                                    Apply
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {/* Bottom Section */}
+
+            <div className="dashboard-grid">
+
+                {/* Notifications */}
+
+                <div className="dashboard-card">
+
+                    <h3>
+
+                        <FaBell />
+
+                        Recent Notifications
+
+                    </h3>
+
+                    <ul>
+
+                        <li>TCS Drive Registration closes tomorrow.</li>
+
+                        <li>Resume uploaded successfully.</li>
+
+                        <li>Infosys shortlisted candidates announced.</li>
+
+                        <li>Wipro drive scheduled on Monday.</li>
+
+                    </ul>
+
+                </div>
+
+                {/* Placement Progress */}
+
+                <div className="dashboard-card">
+
+                    <h3>
+
+                        <FaUserGraduate />
+
+                        Placement Progress
+
+                    </h3>
+
+                    <div className="progress-item">
+
+                        <span>Resume Uploaded</span>
+
+                        <span>✅</span>
+
+                    </div>
+
+                    <div className="progress-item">
+
+                        <span>Profile Completed</span>
+
+                        <span>✅</span>
+
+                    </div>
+
+                    <div className="progress-item">
+
+                        <span>Eligible Drives</span>
+
+                        <span>5</span>
+
+                    </div>
+
+                    <div className="progress-item">
+
+                        <span>Applications</span>
+
+                        <span>8</span>
+
+                    </div>
+
+                </div>
 
             </div>
 

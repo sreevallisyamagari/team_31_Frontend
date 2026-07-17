@@ -1,10 +1,21 @@
+import "./CompanyDrives.css";
+
 import { useEffect, useState } from "react";
 import { getDrives } from "../../services/StudentService";
 import { applyJob } from "../../services/ApplicationService";
 
+import {
+    FaBuilding,
+    FaMapMarkerAlt,
+    FaMoneyBillWave,
+    FaGraduationCap,
+    FaSearch
+} from "react-icons/fa";
+
 function CompanyDrives() {
 
     const [drives, setDrives] = useState([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         loadDrives();
@@ -30,15 +41,9 @@ function CompanyDrives() {
 
         try {
 
-            const application = {
+            const studentId = localStorage.getItem("userId");
 
-                studentId: localStorage.getItem("userId"),
-                driveId: driveId,
-                status: "Applied"
-
-            };
-
-            await applyJob(application);
+            await applyJob(studentId, driveId);
 
             alert("Applied Successfully");
 
@@ -52,74 +57,103 @@ function CompanyDrives() {
 
     };
 
+    const filteredDrives = drives.filter((drive) =>
+        drive.companyName.toLowerCase().includes(search.toLowerCase()) ||
+        drive.jobRole.toLowerCase().includes(search.toLowerCase())
+    );
+
     return (
 
-        <div style={{ padding: "30px" }}>
+        <div className="company-container">
 
-            <h2>Available Company Drives</h2>
+            <h1>Company Drives</h1>
 
-            <hr />
+            <p>Explore and apply for the latest placement opportunities.</p>
 
-            <table
-                border="1"
-                cellPadding="10"
-                style={{
-                    width: "100%",
-                    borderCollapse: "collapse"
-                }}
-            >
+            <div className="search-box">
 
-                <thead>
+                <FaSearch />
 
-                    <tr>
+                <input
+                    type="text"
+                    placeholder="Search company or role..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
 
-                        <th>Company</th>
-                        <th>Role</th>
-                        <th>Package</th>
-                        <th>Department</th>
-                        <th>CGPA</th>
-                        <th>Location</th>
-                        <th>Action</th>
+            </div>
 
-                    </tr>
+            <div className="company-grid">
 
-                </thead>
+                {filteredDrives.map((drive) => (
 
-                <tbody>
+                    <div
+                        key={drive.id}
+                        className="company-card"
+                    >
 
-                    {drives.map((drive) => (
+                        <div className="company-header">
 
-                        <tr key={drive.id}>
+                            <FaBuilding className="company-icon"/>
 
-                            <td>{drive.companyName}</td>
+                            <div>
 
-                            <td>{drive.jobRole}</td>
+                                <h2>{drive.companyName}</h2>
 
-                            <td>{drive.packageOffered} LPA</td>
+                                <p>{drive.jobRole}</p>
 
-                            <td>{drive.department}</td>
+                            </div>
 
-                            <td>{drive.minCgpa}</td>
+                        </div>
 
-                            <td>{drive.location}</td>
+                        <div className="company-info">
 
-                            <td>
+                            <p>
 
-                                <button
-                                    onClick={() => applyDrive(drive.id)}
-                                >
-                                    Apply
-                                </button>
+                                <FaMoneyBillWave />
 
-                            </td>
+                                {drive.packageOffered} LPA
 
-                        </tr>
+                            </p>
 
-                    ))}
+                            <p>
 
-                </tbody>
+                                <FaGraduationCap />
 
-            </table>
+                                CGPA {drive.minCgpa}
+
+                            </p>
+
+                            <p>
+
+                                📘 {drive.department}
+
+                            </p>
+
+                            <p>
+
+                                <FaMapMarkerAlt />
+
+                                {drive.location}
+
+                            </p>
+
+                        </div>
+
+                        <button
+                            className="apply-btn"
+                            onClick={() => applyDrive(drive.id)}
+                        >
+
+                            Apply Now
+
+                        </button>
+
+                    </div>
+
+                ))}
+
+            </div>
 
         </div>
 

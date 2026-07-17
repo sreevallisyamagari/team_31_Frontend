@@ -18,6 +18,10 @@ export const getAllTickets = () => {
 };
 
 // Admin marks ticket as resolved
-export const resolveTicket = (id) => {
+export const markAsResolved = (id) => {
     return axios.put(`${BASE_URL}/${id}`);
+};
+// Pending Tickets Count
+export const getPendingCount = () => {
+    return axios.get(`${BASE_URL}/count/pending`);
 };

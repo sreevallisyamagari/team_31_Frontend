@@ -11,6 +11,7 @@ import Resume from "./pages/student/Resume";
 import Notifications from "./pages/student/Notifications";
 import PlacementResults from "./pages/student/PlacementResults";
 import HelpSupport from "./pages/student/HelpSupport";
+import StudentLayout from "./layouts/StudentLayout";
 
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Students from "./pages/admin/Students";
@@ -20,6 +21,14 @@ import EditDrive from "./pages/admin/EditDrive";
 import ManageApplications from "./pages/admin/ManageApplications";
 import EligibleStudents from "./pages/admin/EligibleStudents";
 import StudentDetails from "./pages/admin/StudentDetails";
+import Shortlisting from "./pages/admin/Shortlisting";
+import SelectedStudents from "./pages/admin/SelectedStudents";
+import Reports from "./pages/admin/Reports";
+import AdminNotifications from "./pages/admin/AdminNotifications";
+import EditStudent from "./pages/admin/EditStudent";
+import Settings from "./pages/admin/Settings";
+
+import AdminLayout from "./layouts/AdminLayout";
 
 function App() {
 
@@ -34,43 +43,112 @@ function App() {
                 <Route path="/" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
-                {/* Student */}
+                {/* Student Layout */}
 
-                <Route path="/student" element={<StudentDashboard />} />
-                <Route path="/drives" element={<CompanyDrives />} />
-                <Route path="/applications" element={<MyApplications />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/resume" element={<Resume />} />
-                <Route path="/notifications" element={<Notifications />} />
-                <Route path="/results" element={<PlacementResults />} />
-                <Route path="/help" element={<HelpSupport />} />
+<Route element={<StudentLayout />}>
 
-                {/* Admin */}
+    <Route
+        path="/student"
+        element={<StudentDashboard />}
+    />
 
-                <Route path="/admin" element={<AdminDashboard />} />
+    <Route
+        path="/drives"
+        element={<CompanyDrives />}
+    />
 
-                <Route path="/students" element={<Students />} />
+    <Route
+        path="/applications"
+        element={<MyApplications />}
+    />
 
-                <Route path="/company-drives" element={<ManageDrives />} />
+    <Route
+        path="/profile"
+        element={<Profile />}
+    />
 
-                <Route path="/add-drive" element={<AddDrive />} />
+    <Route
+        path="/resume"
+        element={<Resume />}
+    />
 
-                <Route path="/edit-drive/:id" element={<EditDrive />} />
+    <Route
+        path="/notifications"
+        element={<Notifications />}
+    />
 
-                <Route
-                    path="/applications-admin"
-                    element={<ManageApplications />}
-                />
+    <Route
+        path="/results"
+        element={<PlacementResults />}
+    />
 
-                <Route
-                    path="/eligible-students"
-                    element={<EligibleStudents />}
-                />
+    <Route
+        path="/help"
+        element={<HelpSupport />}
+    />
 
-                <Route
-                    path="/student-details/:id"
-                    element={<StudentDetails />}
-                />
+</Route>
+
+                {/* Admin Layout */}
+
+                <Route element={<AdminLayout />}>
+
+                    <Route path="/admin" element={<AdminDashboard />} />
+
+                    <Route path="/students" element={<Students />} />
+
+                    <Route path="/company-drives" element={<ManageDrives />} />
+
+                    <Route path="/add-drive" element={<AddDrive />} />
+
+                    <Route path="/edit-drive/:id" element={<EditDrive />} />
+
+                    <Route
+                        path="/reports"
+                        element={<Reports />}
+                    />
+
+                    <Route
+                        path="/applications-admin"
+                        element={<ManageApplications />}
+                    />
+
+                    <Route
+                        path="/notifications-admin"
+                        element={<AdminNotifications />}
+                    />
+
+                    <Route
+                        path="/eligible-students"
+                        element={<EligibleStudents />}
+                    />
+
+                    <Route
+                        path="/settings"
+                        element={<Settings />}
+                    />
+
+                    <Route
+                        path="/edit-student/:id"
+                        element={<EditStudent />}
+                    />
+
+                    <Route
+                        path="/student-details/:id"
+                        element={<StudentDetails />}
+                    />
+
+                    <Route
+                        path="/shortlisting"
+                        element={<Shortlisting />}
+                    />
+
+                    <Route
+                        path="/selected-students"
+                        element={<SelectedStudents />}
+                    />
+
+                </Route>
 
             </Routes>
 

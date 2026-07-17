@@ -1,6 +1,12 @@
+import "./Login.css";
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/AuthService";
+import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+
+
+import loginImage from "../../assets/images/login.png";
 
 function Login() {
 
@@ -8,6 +14,7 @@ function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleLogin = async (e) => {
 
@@ -20,7 +27,6 @@ function Login() {
                 password
             });
 
-            // Login failed
             if (response.data.message !== "Login Successful") {
 
                 alert(response.data.message);
@@ -29,14 +35,12 @@ function Login() {
 
             }
 
-            // Save logged-in user details
             localStorage.setItem("userId", response.data.id);
             localStorage.setItem("userName", response.data.name);
             localStorage.setItem("userRole", response.data.role);
 
             alert(response.data.message);
 
-            // Navigate based on role
             if (response.data.role === "ADMIN") {
 
                 navigate("/admin");
@@ -67,85 +71,148 @@ function Login() {
 
     return (
 
-        <div
-            style={{
-                width: "400px",
-                margin: "80px auto",
-                padding: "30px",
-                border: "1px solid #ddd",
-                borderRadius: "10px",
-                boxShadow: "0 0 10px rgba(0,0,0,0.1)"
-            }}
-        >
+        <div className="login-page">
 
-            <h2 style={{ textAlign: "center" }}>
-                Placement Coordination System
-            </h2>
+            {/* Left Section */}
 
-            <form onSubmit={handleLogin}>
+            <div className="login-left">
 
-                <input
-                    type="email"
-                    placeholder="Enter Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    style={{
-                        width: "100%",
-                        padding: "10px",
-                        marginBottom: "15px"
-                    }}
-                    required
+
+
+                <img
+                    src={loginImage}
+                    alt="Placement Login"
+                    className="login-image"
                 />
 
-                <input
-                    type="password"
-                    placeholder="Enter Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    style={{
-                        width: "100%",
-                        padding: "10px",
-                        marginBottom: "20px"
-                    }}
-                    required
-                />
 
-                <button
-                    type="submit"
-                    style={{
-                        width: "100%",
-                        padding: "10px",
-                        background: "#2563eb",
-                        color: "white",
-                        border: "none",
-                        cursor: "pointer",
-                        borderRadius: "5px"
-                    }}
-                >
-                    Login
-                </button>
+            </div>
 
-            </form>
+            {/* Right Section */}
 
-            <hr style={{ margin: "25px 0" }} />
+            <div className="login-right">
 
-            <div style={{ textAlign: "center" }}>
+                <div className="login-card">
 
-                <p>New Student?</p>
+                    <h1>
 
-                <button
-                    onClick={() => navigate("/register")}
-                    style={{
-                        background: "green",
-                        color: "white",
-                        border: "none",
-                        padding: "10px 20px",
-                        cursor: "pointer",
-                        borderRadius: "5px"
-                    }}
-                >
-                    Register Here
-                </button>
+                        Welcome Back
+
+                    </h1>
+
+                    <p>
+
+                        Login to your account to continue
+
+                    </p>
+
+                    <form onSubmit={handleLogin}>
+
+                        <label>
+
+                            Email
+
+                        </label>
+
+                        <div className="input-box">
+
+                            <FaUser className="input-icon" />
+
+                            <input
+                                type="email"
+                                placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+
+                        </div>
+
+                        <label>
+
+                            Password
+
+                        </label>
+
+                        <div className="input-box">
+
+                            <FaLock className="input-icon" />
+
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                placeholder="Enter your password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+
+                            <span
+                                className="eye-icon"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+
+                                {
+
+                                    showPassword
+                                        ? <FaEyeSlash />
+                                        : <FaEye />
+
+                                }
+
+                            </span>
+
+                        </div>
+
+                        <div className="login-options">
+
+                            <label className="remember">
+
+                                <input type="checkbox" />
+
+                                <span>Remember Me</span>
+
+                            </label>
+
+                            <span className="forgot">
+
+                                Forgot Password?
+
+                            </span>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="login-btn"
+                        >
+
+                            Login
+
+                        </button>
+
+                    </form>
+
+                    <div className="divider">
+
+                        <span>OR</span>
+
+                    </div>
+
+                    <div className="register-text">
+
+                        New Here?
+
+                        <span
+                            onClick={() => navigate("/register")}
+                        >
+
+                            Register
+
+                        </span>
+
+                    </div>
+
+                </div>
 
             </div>
 

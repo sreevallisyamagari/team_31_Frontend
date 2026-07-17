@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import {
-    getAllApplications,
+    getApplicationsByStatus,
     updateStatus
 } from "../../services/ApplicationService";
 
-function ManageApplications() {
+function Shortlisting() {
 
     const [applications, setApplications] = useState([]);
 
@@ -16,7 +16,7 @@ function ManageApplications() {
 
         try {
 
-            const response = await getAllApplications();
+            const response = await getApplicationsByStatus("Applied");
 
             setApplications(response.data);
 
@@ -28,21 +28,19 @@ function ManageApplications() {
 
     };
 
-    const changeStatus = async (id, status) => {
+    const shortlist = async (id) => {
 
-        try {
+        await updateStatus(id, "Shortlisted");
 
-            await updateStatus(id, status);
+        loadApplications();
 
-            alert("Status Updated Successfully");
+    };
 
-            loadApplications();
+    const reject = async (id) => {
 
-        } catch (error) {
+        await updateStatus(id, "Rejected");
 
-            console.log(error);
-
-        }
+        loadApplications();
 
     };
 
@@ -50,14 +48,13 @@ function ManageApplications() {
 
         <div style={{ padding: "30px" }}>
 
-            <h2>Manage Applications</h2>
+            <h2>Shortlisting</h2>
 
             <hr />
 
             <table
                 border="1"
                 cellPadding="10"
-                cellSpacing="0"
                 width="100%"
                 style={{ borderCollapse: "collapse" }}
             >
@@ -66,7 +63,7 @@ function ManageApplications() {
 
                     <tr>
 
-                        <th>Student</th>
+                        <th>Student Name</th>
 
                         <th>Company</th>
 
@@ -76,7 +73,7 @@ function ManageApplications() {
 
                         <th>Status</th>
 
-                        <th>Change Status</th>
+                        <th>Action</th>
 
                     </tr>
 
@@ -86,7 +83,7 @@ function ManageApplications() {
 
                     {
 
-                        applications.map(application => (
+                        applications.map((application) => (
 
                             <tr key={application.id}>
 
@@ -122,25 +119,19 @@ function ManageApplications() {
 
                                 <td>
 
-                                    <select
-                                        value={application.status}
-                                        onChange={(e) =>
-                                            changeStatus(
-                                                application.id,
-                                                e.target.value
-                                            )
-                                        }
+                                    <button
+                                        onClick={() => shortlist(application.id)}
                                     >
+                                        Shortlist
+                                    </button>
 
-                                        <option value="Applied">Applied</option>
+                                    {" "}
 
-                                        <option value="Shortlisted">Shortlisted</option>
-
-                                        <option value="Selected">Selected</option>
-
-                                        <option value="Rejected">Rejected</option>
-
-                                    </select>
+                                    <button
+                                        onClick={() => reject(application.id)}
+                                    >
+                                        Reject
+                                    </button>
 
                                 </td>
 
@@ -160,4 +151,4 @@ function ManageApplications() {
 
 }
 
-export default ManageApplications;
+export default Shortlisting;

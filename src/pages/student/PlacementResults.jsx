@@ -1,9 +1,20 @@
 import { useEffect, useState } from "react";
 import { getResults } from "../../services/StudentService";
+import {
+    FaAward,
+    FaBuilding,
+    FaSearch,
+    FaCheckCircle,
+    FaClock,
+    FaTimesCircle
+} from "react-icons/fa";
+
+import "./PlacementResults.css";
 
 function PlacementResults() {
 
     const [results, setResults] = useState([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         loadResults();
@@ -27,54 +38,184 @@ function PlacementResults() {
 
     };
 
+    const filteredResults = results.filter((result) => {
+
+        return (
+            result.status.toLowerCase().includes(search.toLowerCase()) ||
+            result.driveId.toString().includes(search)
+        );
+
+    });
+
+    const applied = results.filter(r => r.status === "Applied").length;
+    const shortlisted = results.filter(r => r.status === "Shortlisted").length;
+    const selected = results.filter(r => r.status === "Selected").length;
+
     return (
 
-        <div style={{ padding: "30px" }}>
+        <div className="placement-container">
 
-            <h2>Placement Results</h2>
+            <h1>
+                <FaAward /> Placement Results
+            </h1>
 
-            <hr />
+            <p className="subtitle">
+                Track your placement journey.
+            </p>
 
-            <table
-                border="1"
-                cellPadding="10"
-                style={{
-                    width: "100%",
-                    borderCollapse: "collapse"
-                }}
-            >
+            <div className="stats-grid">
 
-                <thead>
+                <div className="stat-card">
+                    <h2>{applied}</h2>
+                    <span>Applied</span>
+                </div>
 
-                    <tr>
+                <div className="stat-card">
+                    <h2>{shortlisted}</h2>
+                    <span>Shortlisted</span>
+                </div>
 
-                        <th>Application ID</th>
-                        <th>Drive ID</th>
-                        <th>Status</th>
+                <div className="stat-card">
+                    <h2>{selected}</h2>
+                    <span>Selected</span>
+                </div>
 
-                    </tr>
+            </div>
 
-                </thead>
+            <div className="search-box">
 
-                <tbody>
+                <FaSearch />
 
-                    {results.map((result) => (
+                <input
+                    type="text"
+                    placeholder="Search by Drive ID or Status..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
 
-                        <tr key={result.id}>
+            </div>
 
-                            <td>{result.id}</td>
+            {
 
-                            <td>{result.driveId}</td>
+                filteredResults.length === 0 ?
 
-                            <td>{result.status}</td>
+                    <div className="empty-card">
 
-                        </tr>
+                        No Placement Results Found
 
-                    ))}
+                    </div>
 
-                </tbody>
+                    :
 
-            </table>
+                    filteredResults.map((result) => (
+
+                        <div
+                            key={result.id}
+                            className="placement-card"
+                        >
+
+                            <div className="card-header">
+
+                                <FaBuilding
+                                    size={35}
+                                    color="#2563eb"
+                                />
+
+                                <div>
+
+                                    <h3>
+
+                                        Application #{result.id}
+
+                                    </h3>
+
+                                    <p>
+
+                                        Drive ID : {result.driveId}
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div className="card-body">
+
+                                <strong>Status</strong>
+
+                                <br /><br />
+
+                                {
+
+                                    result.status === "Selected" &&
+
+                                    <span className="selected">
+
+                                        <FaCheckCircle />
+
+                                        {" "}
+
+                                        Selected
+
+                                    </span>
+
+                                }
+
+                                {
+
+                                    result.status === "Shortlisted" &&
+
+                                    <span className="shortlisted">
+
+                                        <FaCheckCircle />
+
+                                        {" "}
+
+                                        Shortlisted
+
+                                    </span>
+
+                                }
+
+                                {
+
+                                    result.status === "Applied" &&
+
+                                    <span className="applied">
+
+                                        <FaClock />
+
+                                        {" "}
+
+                                        Applied
+
+                                    </span>
+
+                                }
+
+                                {
+
+                                    result.status === "Rejected" &&
+
+                                    <span className="rejected">
+
+                                        <FaTimesCircle />
+
+                                        {" "}
+
+                                        Rejected
+
+                                    </span>
+
+                                }
+
+                            </div>
+
+                        </div>
+
+                    ))
+
+            }
 
         </div>
 

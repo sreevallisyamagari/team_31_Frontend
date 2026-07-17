@@ -1,0 +1,225 @@
+.applications-container{
+
+    padding:30px;
+
+}
+
+.applications-container h1{
+
+    color:#1e293b;
+
+}
+
+.applications-container p{
+
+    color:#64748b;
+
+    margin-bottom:20px;
+
+}
+
+/* Search */
+
+.search-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    background:white;
+
+    padding:14px 18px;
+
+    border-radius:12px;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+
+    margin-bottom:30px;
+
+}
+
+.search-box input{
+
+    border:none;
+
+    outline:none;
+
+    width:100%;
+
+    font-size:16px;
+
+}
+
+/* Cards */
+
+.applications-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+
+    gap:25px;
+
+}
+
+.application-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:24px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.application-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 12px 25px rgba(37,99,235,.15);
+
+}
+
+.application-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+.application-icon{
+
+    font-size:42px;
+
+    color:#2563eb;
+
+}
+
+.application-header h2{
+
+    color:#1e293b;
+
+    margin-bottom:5px;
+
+}
+
+.application-header p{
+
+    color:#64748b;
+
+    margin:0;
+
+}
+
+.application-body{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.application-body div{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+/* Status */
+
+.status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+.pending{
+
+    background:#fff7e6;
+
+    color:#d97706;
+
+}
+
+.shortlisted{
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+}
+
+.selected{
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+}
+
+.rejected{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
+/* Empty */
+
+.no-data{
+
+    grid-column:1/-1;
+
+    text-align:center;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+    color:#64748b;
+
+}
+
+@media(max-width:768px){
+
+    .applications-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

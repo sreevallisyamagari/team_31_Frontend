@@ -1,10 +1,28 @@
+import "./Register.css";
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../services/AuthService";
 
+import {
+    FaUser,
+    FaEnvelope,
+    FaLock,
+    FaBuilding,
+    FaGraduationCap,
+    FaClipboardList,
+    FaPhone,
+    FaEye,
+    FaEyeSlash
+} from "react-icons/fa";
+
+import loginImage from "../../assets/images/login.png";
+
 function Register() {
 
     const navigate = useNavigate();
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const [student, setStudent] = useState({
         name: "",
@@ -47,105 +65,193 @@ function Register() {
 
     return (
 
-        <div
-            style={{
-                width: "450px",
-                margin: "50px auto",
-                padding: "30px",
-                border: "1px solid #ddd",
-                borderRadius: "10px"
-            }}
-        >
+        <div className="register-page">
 
-            <h2>Student Registration</h2>
+            {/* Left Side */}
 
-            <form onSubmit={handleRegister}>
+            <div className="register-left">
 
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Full Name"
-                    onChange={handleChange}
-                    style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+                <img
+                    src={loginImage}
+                    alt="Placement Portal"
+                    className="register-image"
                 />
 
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    onChange={handleChange}
-                    style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-                />
+            </div>
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={handleChange}
-                    style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-                />
+            {/* Right Side */}
 
-                <input
-                    type="text"
-                    name="department"
-                    placeholder="Department"
-                    onChange={handleChange}
-                    style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-                />
+            <div className="register-right">
 
-                <input
-                    type="number"
-                    step="0.01"
-                    name="cgpa"
-                    placeholder="CGPA"
-                    onChange={handleChange}
-                    style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-                />
+                <div className="register-card">
 
-                <input
-                    type="number"
-                    name="backlogs"
-                    placeholder="Backlogs"
-                    onChange={handleChange}
-                    style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-                />
+                    <h1>Create Account</h1>
 
-                <input
-                    type="text"
-                    name="phone"
-                    placeholder="Phone Number"
-                    onChange={handleChange}
-                    style={{ width: "100%", padding: "10px", marginBottom: "20px" }}
-                />
+                    <p>Join the Placement Portal</p>
 
-                <button
-                    type="submit"
-                    style={{
-                        width: "100%",
-                        padding: "10px",
-                        background: "green",
-                        color: "white",
-                        border: "none",
-                        cursor: "pointer"
-                    }}
-                >
-                    Register
-                </button>
+                    <form onSubmit={handleRegister}>
 
-            </form>
+                        <label>Full Name</label>
 
-            <p style={{ textAlign: "center", marginTop: "20px" }}>
-                Already have an account?{" "}
-                <span
-                    style={{
-                        color: "blue",
-                        cursor: "pointer"
-                    }}
-                    onClick={() => navigate("/")}
-                >
-                    Login
-                </span>
-            </p>
+                        <div className="input-box">
+
+                            <FaUser className="input-icon"/>
+
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Enter your full name"
+                                value={student.name}
+                                onChange={handleChange}
+                                required
+                            />
+
+                        </div>
+
+                        <label>Email</label>
+
+                        <div className="input-box">
+
+                            <FaEnvelope className="input-icon"/>
+
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                value={student.email}
+                                onChange={handleChange}
+                                required
+                            />
+
+                        </div>
+
+                        <label>Password</label>
+
+                        <div className="input-box">
+
+                            <FaLock className="input-icon"/>
+
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                placeholder="Enter password"
+                                value={student.password}
+                                onChange={handleChange}
+                                required
+                            />
+
+                            <span
+                                className="eye-icon"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {
+                                    showPassword
+                                        ? <FaEyeSlash/>
+                                        : <FaEye/>
+                                }
+                            </span>
+
+                        </div>
+
+                        <label>Department</label>
+
+                        <div className="input-box">
+
+                            <FaBuilding className="input-icon"/>
+
+                            <input
+                                type="text"
+                                name="department"
+                                placeholder="Department"
+                                value={student.department}
+                                onChange={handleChange}
+                                required
+                            />
+
+                        </div>
+
+                        <label>CGPA</label>
+
+                        <div className="input-box">
+
+                            <FaGraduationCap className="input-icon"/>
+
+                            <input
+                                type="number"
+                                step="0.01"
+                                name="cgpa"
+                                placeholder="CGPA"
+                                value={student.cgpa}
+                                onChange={handleChange}
+                                required
+                            />
+
+                        </div>
+
+                        <label>Backlogs</label>
+
+                        <div className="input-box">
+
+                            <FaClipboardList className="input-icon"/>
+
+                            <input
+                                type="number"
+                                name="backlogs"
+                                placeholder="Backlogs"
+                                value={student.backlogs}
+                                onChange={handleChange}
+                                required
+                            />
+
+                        </div>
+
+                        <label>Phone Number</label>
+
+                        <div className="input-box">
+
+                            <FaPhone className="input-icon"/>
+
+                            <input
+                                type="text"
+                                name="phone"
+                                placeholder="Phone Number"
+                                value={student.phone}
+                                onChange={handleChange}
+                                required
+                            />
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="register-btn"
+                        >
+                            Register
+                        </button>
+
+                    </form>
+
+                    <div className="divider">
+
+                        <span>OR</span>
+
+                    </div>
+
+                    <div className="login-text">
+
+                        Already have an account?
+
+                        <span
+                            onClick={() => navigate("/")}
+                        >
+                            Login
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 

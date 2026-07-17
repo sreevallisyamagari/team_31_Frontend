@@ -3,10 +3,12 @@ import {
     getAllStudents,
     deleteStudent
 } from "../../services/AdminService";
+import { useNavigate } from "react-router-dom";
 
 function Students() {
 
     const [students, setStudents] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         loadStudents();
@@ -89,9 +91,11 @@ function Students() {
 
                                 <td>
 
-                                    <button>
-                                        Edit
-                                    </button>
+                                    <button
+    onClick={() => navigate(`/edit-student/${student.id}`)}
+>
+    Edit
+</button>
 
                                     <button
                                         onClick={() => handleDelete(student.id)}
