@@ -5,6 +5,18 @@ import {
 } from "../../services/AdminService";
 import { useNavigate } from "react-router-dom";
 
+import {
+    FaUserGraduate,
+    FaEnvelope,
+    FaGraduationCap,
+    FaStar,
+    FaFilePdf,
+    FaEdit,
+    FaTrashAlt
+} from "react-icons/fa";
+
+import "./Students.css";
+
 function Students() {
 
     const [students, setStudents] = useState([]);
@@ -38,83 +50,159 @@ function Students() {
 
     return (
 
-        <div style={{ padding: "30px" }}>
+        <div className="students-container">
 
-            <h2>Manage Students</h2>
+            <div className="students-header">
 
-            <hr />
+                <div>
 
-            <table
-                border="1"
-                cellPadding="10"
-                style={{
-                    width: "100%",
-                    borderCollapse: "collapse"
-                }}
-            >
+                    <h1>Manage Students</h1>
 
-                <thead>
+                    <p>
+                        View, edit and manage all registered students.
+                    </p>
 
-                    <tr>
+                </div>
 
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Department</th>
-                        <th>CGPA</th>
-                        <th>Resume</th>
-                        <th>Actions</th>
+                <div className="student-count">
 
-                    </tr>
+                    Total Students : <span>{students.length}</span>
 
-                </thead>
+                </div>
 
-                <tbody>
+            </div>
 
-                    {
+            {
 
-                        students.map(student => (
+                students.length === 0 ?
 
-                            <tr key={student.id}>
+                    <div className="empty-card">
 
-                                <td>{student.id}</td>
+                        <h3>No Students Found</h3>
 
-                                <td>{student.name}</td>
+                        <p>No students have registered yet.</p>
 
-                                <td>{student.email}</td>
+                    </div>
 
-                                <td>{student.department}</td>
+                    :
 
-                                <td>{student.cgpa}</td>
+                    <div className="students-grid">
 
-                                <td>{student.resume}</td>
+                        {
 
-                                <td>
+                            students.map(student => (
 
-                                    <button
-    onClick={() => navigate(`/edit-student/${student.id}`)}
->
-    Edit
-</button>
+                                <div
+                                    key={student.id}
+                                    className="student-card"
+                                >
 
-                                    <button
-                                        onClick={() => handleDelete(student.id)}
-                                        style={{ marginLeft: "10px" }}
-                                    >
-                                        Delete
-                                    </button>
+                                    <div className="student-title">
 
-                                </td>
+                                        <FaUserGraduate />
 
-                            </tr>
+                                        <h2>{student.name}</h2>
 
-                        ))
+                                    </div>
 
-                    }
+                                    <p>
 
-                </tbody>
+                                        <FaEnvelope />
 
-            </table>
+                                        <strong>Email :</strong>
+
+                                        {student.email}
+
+                                    </p>
+
+                                    <p>
+
+                                        <FaGraduationCap />
+
+                                        <strong>Department :</strong>
+
+                                        {student.department}
+
+                                    </p>
+
+                                    <p>
+
+                                        <FaStar />
+
+                                        <strong>CGPA :</strong>
+
+                                        {student.cgpa}
+
+                                    </p>
+
+                                    <div className="resume-section">
+
+                                        {
+
+                                            student.resume ?
+
+                                                <a
+                                                    href={`http://localhost:8080/uploads/${student.resume}`}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="resume-btn"
+                                                >
+
+                                                    <FaFilePdf />
+
+                                                    View Resume
+
+                                                </a>
+
+                                                :
+
+                                                <span className="no-resume">
+
+                                                    No Resume
+
+                                                </span>
+
+                                        }
+
+                                    </div>
+
+                                    <div className="action-buttons">
+
+                                        <button
+                                            className="edit-btn"
+                                            onClick={() =>
+                                                navigate(`/edit-student/${student.id}`)
+                                            }
+                                        >
+
+                                            <FaEdit />
+
+                                            Edit
+
+                                        </button>
+
+                                        <button
+                                            className="delete-btn"
+                                            onClick={() => handleDelete(student.id)}
+                                        >
+
+                                            <FaTrashAlt />
+
+                                            Delete
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            ))
+
+                        }
+
+                    </div>
+
+            }
 
         </div>
 

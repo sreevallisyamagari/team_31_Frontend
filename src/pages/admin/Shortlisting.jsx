@@ -4,6 +4,17 @@ import {
     updateStatus
 } from "../../services/ApplicationService";
 
+import {
+    FaUserGraduate,
+    FaBuilding,
+    FaBriefcase,
+    FaFilePdf,
+    FaCheckCircle,
+    FaTimesCircle
+} from "react-icons/fa";
+
+import "./Shortlisting.css";
+
 function Shortlisting() {
 
     const [applications, setApplications] = useState([]);
@@ -46,104 +57,153 @@ function Shortlisting() {
 
     return (
 
-        <div style={{ padding: "30px" }}>
+        <div className="shortlisting-container">
 
-            <h2>Shortlisting</h2>
+            <div className="shortlisting-header">
 
-            <hr />
+                <div>
 
-            <table
-                border="1"
-                cellPadding="10"
-                width="100%"
-                style={{ borderCollapse: "collapse" }}
-            >
+                    <h1>Shortlisting</h1>
 
-                <thead>
+                    <p>
+                        Review student applications and shortlist eligible candidates.
+                    </p>
 
-                    <tr>
+                </div>
 
-                        <th>Student Name</th>
+            </div>
 
-                        <th>Company</th>
+            {
 
-                        <th>Job Role</th>
+                applications.length === 0 ?
 
-                        <th>Resume</th>
+                    <div className="empty-card">
 
-                        <th>Status</th>
+                        <h3>No Applications Available</h3>
 
-                        <th>Action</th>
+                        <p>
+                            There are no pending applications for shortlisting.
+                        </p>
 
-                    </tr>
+                    </div>
 
-                </thead>
+                    :
 
-                <tbody>
+                    <div className="shortlisting-grid">
 
-                    {
+                        {
 
-                        applications.map((application) => (
+                            applications.map((application) => (
 
-                            <tr key={application.id}>
+                                <div
+                                    key={application.id}
+                                    className="shortlisting-card"
+                                >
 
-                                <td>{application.student.name}</td>
+                                    <div className="student-title">
 
-                                <td>{application.drive.companyName}</td>
+                                        <FaUserGraduate />
 
-                                <td>{application.drive.jobRole}</td>
+                                        <h2>
 
-                                <td>
+                                            {application.student.name}
 
-                                    {
+                                        </h2>
 
-                                        application.student.resume ?
+                                    </div>
 
-                                            <a
-                                                href={`http://localhost:8080/uploads/${application.student.resume}`}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
-                                                View Resume
-                                            </a>
+                                    <p>
 
-                                            :
+                                        <FaBuilding />
 
-                                            "No Resume"
+                                        <strong>Company :</strong>
 
-                                    }
+                                        {application.drive.companyName}
 
-                                </td>
+                                    </p>
 
-                                <td>{application.status}</td>
+                                    <p>
 
-                                <td>
+                                        <FaBriefcase />
 
-                                    <button
-                                        onClick={() => shortlist(application.id)}
-                                    >
-                                        Shortlist
-                                    </button>
+                                        <strong>Job Role :</strong>
 
-                                    {" "}
+                                        {application.drive.jobRole}
 
-                                    <button
-                                        onClick={() => reject(application.id)}
-                                    >
-                                        Reject
-                                    </button>
+                                    </p>
 
-                                </td>
+                                    <div className="resume-section">
 
-                            </tr>
+                                        {
 
-                        ))
+                                            application.student.resume ?
 
-                    }
+                                                <a
+                                                    href={`http://localhost:8080/uploads/${application.student.resume}`}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="resume-btn"
+                                                >
 
-                </tbody>
+                                                    <FaFilePdf />
 
-            </table>
+                                                    View Resume
+
+                                                </a>
+
+                                                :
+
+                                                <span className="no-resume">
+
+                                                    No Resume Uploaded
+
+                                                </span>
+
+                                        }
+
+                                    </div>
+
+                                    <div className="status-badge">
+
+                                        Applied
+
+                                    </div>
+
+                                    <div className="action-buttons">
+
+                                        <button
+                                            className="shortlist-btn"
+                                            onClick={() => shortlist(application.id)}
+                                        >
+
+                                            <FaCheckCircle />
+
+                                            Shortlist
+
+                                        </button>
+
+                                        <button
+                                            className="reject-btn"
+                                            onClick={() => reject(application.id)}
+                                        >
+
+                                            <FaTimesCircle />
+
+                                            Reject
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            ))
+
+                        }
+
+                    </div>
+
+            }
 
         </div>
 

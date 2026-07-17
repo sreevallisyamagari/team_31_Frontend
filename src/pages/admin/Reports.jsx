@@ -1,6 +1,18 @@
 import { useEffect, useState } from "react";
 import { getReport } from "../../services/ReportService";
 
+import {
+    FaUsers,
+    FaBuilding,
+    FaClipboardList,
+    FaPaperPlane,
+    FaUserCheck,
+    FaTrophy,
+    FaTimesCircle
+} from "react-icons/fa";
+
+import "./Reports.css";
+
 function Reports() {
 
     const [report, setReport] = useState({});
@@ -27,58 +39,95 @@ function Reports() {
 
     return (
 
-        <div>
+        <div className="reports-container">
 
-            <h2>Reports</h2>
+            <div className="reports-header">
 
-            <hr />
+                <div>
 
-            <table
-                border="1"
-                cellPadding="10"
-                width="50%"
-            >
+                    <h1>Reports & Analytics</h1>
 
-                <tbody>
+                    <p>
+                        View overall placement statistics and recruitment progress.
+                    </p>
 
-                    <tr>
-                        <td>Total Students</td>
-                        <td>{report.totalStudents}</td>
-                    </tr>
+                </div>
 
-                    <tr>
-                        <td>Total Drives</td>
-                        <td>{report.totalDrives}</td>
-                    </tr>
+            </div>
 
-                    <tr>
-                        <td>Total Applications</td>
-                        <td>{report.totalApplications}</td>
-                    </tr>
+            <div className="reports-grid">
 
-                    <tr>
-                        <td>Applied</td>
-                        <td>{report.applied}</td>
-                    </tr>
+                <div className="report-card">
 
-                    <tr>
-                        <td>Shortlisted</td>
-                        <td>{report.shortlisted}</td>
-                    </tr>
+                    <FaUsers className="report-icon" />
 
-                    <tr>
-                        <td>Selected</td>
-                        <td>{report.selected}</td>
-                    </tr>
+                    <h3>Total Students</h3>
 
-                    <tr>
-                        <td>Rejected</td>
-                        <td>{report.rejected}</td>
-                    </tr>
+                    <h2>{report.totalStudents || 0}</h2>
 
-                </tbody>
+                </div>
 
-            </table>
+                <div className="report-card">
+
+                    <FaBuilding className="report-icon" />
+
+                    <h3>Total Drives</h3>
+
+                    <h2>{report.totalDrives || 0}</h2>
+
+                </div>
+
+                <div className="report-card">
+
+                    <FaClipboardList className="report-icon" />
+
+                    <h3>Total Applications</h3>
+
+                    <h2>{report.totalApplications || 0}</h2>
+
+                </div>
+
+                <div className="report-card applied">
+
+                    <FaPaperPlane className="report-icon" />
+
+                    <h3>Applied</h3>
+
+                    <h2>{report.applied || 0}</h2>
+
+                </div>
+
+                <div className="report-card shortlisted">
+
+                    <FaUserCheck className="report-icon" />
+
+                    <h3>Shortlisted</h3>
+
+                    <h2>{report.shortlisted || 0}</h2>
+
+                </div>
+
+                <div className="report-card selected">
+
+                    <FaTrophy className="report-icon" />
+
+                    <h3>Selected</h3>
+
+                    <h2>{report.selected || 0}</h2>
+
+                </div>
+
+                <div className="report-card rejected">
+
+                    <FaTimesCircle className="report-icon" />
+
+                    <h3>Rejected</h3>
+
+                    <h2>{report.rejected || 0}</h2>
+
+                </div>
+
+            </div>
 
         </div>
 

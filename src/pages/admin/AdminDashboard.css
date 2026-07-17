@@ -1,0 +1,547 @@
+/* ==========================================================================
+   Admin Dashboard Container
+   ========================================================================== */
+.admin-dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #1e293b;
+}
+
+/* ==========================================================================
+   Loader Styling
+   ========================================================================== */
+.admin-dashboard-loader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    gap: 16px;
+}
+
+.admin-loader-spinner {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 4px solid #e2e8f0;
+    border-top: 4px solid #2563eb;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.admin-dashboard-loader span {
+    color: #64748b;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+/* ==========================================================================
+   Statistics Cards
+   ========================================================================== */
+.admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.admin-stat-card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.admin-stat-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.admin-stat-content h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    color: #1e293b;
+    line-height: 1.2;
+}
+
+.admin-stat-title {
+    margin: 4px 0 0 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.admin-stat-subtext {
+    margin: 2px 0 0 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: #94a3b8;
+}
+
+/* Themes */
+.admin-blue-theme .admin-stat-icon-wrapper {
+    background: #eff6ff;
+    color: #2563eb;
+}
+.admin-blue-theme:hover { border-color: #bfdbfe; }
+
+.admin-green-theme .admin-stat-icon-wrapper {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+.admin-green-theme:hover { border-color: #bbf7d0; }
+
+.admin-purple-theme .admin-stat-icon-wrapper {
+    background: #faf5ff;
+    color: #8b5cf6;
+}
+.admin-purple-theme:hover { border-color: #e9d5ff; }
+
+.admin-orange-theme .admin-stat-icon-wrapper {
+    background: #fffbeb;
+    color: #d97706;
+}
+.admin-orange-theme:hover { border-color: #fde68a; }
+
+/* ==========================================================================
+   Dashboard Grid Layout
+   ========================================================================== */
+.dashboard-layout-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+.grid-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ==========================================================================
+   Dashboard Blocks (Cards)
+   ========================================================================== */
+.dashboard-block {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.block-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.block-view-all {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2563eb;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.block-view-all:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Recent Drives Table
+   ========================================================================== */
+.table-wrapper {
+    overflow-x: auto;
+    border: 1px solid #f1f5f9;
+    border-radius: 12px;
+}
+
+.admin-drives-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.admin-drives-table th {
+    background: #f8fafc;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    border-bottom: 1px solid #e2e8f0;
+    text-transform: uppercase;
+}
+
+.admin-drives-table td {
+    padding: 14px 16px;
+    font-size: 13.5px;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.admin-drives-table tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-drives-table .company-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-company-logo {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 10px;
+}
+
+.admin-company-name-text {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+/* Table badges */
+.admin-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.admin-badge.ongoing {
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.admin-badge.upcoming {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.admin-badge.completed {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+/* ==========================================================================
+   Applications Overview SVG Line Chart
+   ========================================================================== */
+.chart-container {
+    position: relative;
+    width: 100%;
+}
+
+.line-chart-svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.chart-axis {
+    stroke: #cbd5e1;
+    stroke-width: 1;
+}
+
+.chart-grid-line {
+    stroke: #f1f5f9;
+    stroke-width: 1;
+    stroke-dasharray: 4,4;
+}
+
+.chart-axis-text {
+    fill: #94a3b8;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.chart-path {
+    fill: none;
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+.chart-path.apps { stroke: #3b82f6; }
+.chart-path.shortlisted { stroke: #8b5cf6; }
+.chart-path.selected { stroke: #10b981; }
+
+.chart-dot {
+    stroke-width: 2;
+    fill: #ffffff;
+}
+
+.chart-dot.apps { stroke: #3b82f6; }
+.chart-dot.shortlisted { stroke: #8b5cf6; }
+.chart-dot.selected { stroke: #10b981; }
+
+/* Chart Legend */
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.legend-color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.legend-color-dot.apps { background: #3b82f6; }
+.legend-color-dot.shortlisted { background: #8b5cf6; }
+.legend-color-dot.selected { background: #10b981; }
+
+/* ==========================================================================
+   Donut Chart (Status Overview)
+   ========================================================================== */
+.donut-chart-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+.donut-legend-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.donut-legend-item:last-child {
+    border-bottom: none;
+}
+
+.donut-legend-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.donut-legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+}
+
+.donut-legend-color.ongoing { background: #22c55e; }
+.donut-legend-color.upcoming { background: #3b82f6; }
+.donut-legend-color.completed { background: #94a3b8; }
+
+.donut-legend-right {
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* ==========================================================================
+   Recent Activities Timeline
+   ========================================================================== */
+.activity-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    padding-left: 12px;
+}
+
+.activity-timeline::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 23px;
+    width: 2px;
+    background: #f1f5f9;
+}
+
+.activity-item {
+    display: flex;
+    gap: 16px;
+    position: relative;
+}
+
+.activity-icon-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #eff6ff;
+    border: 2px solid #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.activity-details {
+    flex: 1;
+}
+
+.activity-title {
+    margin: 0;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.activity-desc {
+    margin: 2px 0 0 0;
+    font-size: 12.5px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.activity-time {
+    margin: 4px 0 0 0;
+    font-size: 11px;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Quick Actions Row
+   ========================================================================== */
+.quick-actions-bar {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.quick-action-btn {
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    border: none;
+}
+
+.quick-action-btn.outline-blue {
+    background: #ffffff;
+    border: 1.5px solid #2563eb;
+    color: #2563eb;
+}
+.quick-action-btn.outline-blue:hover { background: #eff6ff; }
+
+.quick-action-btn.outline-green {
+    background: #ffffff;
+    border: 1.5px solid #16a34a;
+    color: #16a34a;
+}
+.quick-action-btn.outline-green:hover { background: #f0fdf4; }
+
+.quick-action-btn.outline-purple {
+    background: #ffffff;
+    border: 1.5px solid #8b5cf6;
+    color: #8b5cf6;
+}
+.quick-action-btn.outline-purple:hover { background: #faf5ff; }
+
+.quick-action-btn.solid-orange {
+    background: #f97316;
+    color: #ffffff;
+}
+.quick-action-btn.solid-orange:hover { background: #ea580c; }
+
+.quick-action-btn.solid-blue {
+    background: #2563eb;
+    color: #ffffff;
+}
+.quick-action-btn.solid-blue:hover { background: #1d4ed8; }
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 1200px) {
+    .admin-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dashboard-layout-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-actions-bar {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-actions-bar {
+        grid-template-columns: 1fr;
+    }
+    
+    .donut-chart-wrapper {
+        flex-direction: column;
+    }
+}

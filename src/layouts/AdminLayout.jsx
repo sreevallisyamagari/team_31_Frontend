@@ -3,6 +3,8 @@ import {
     Outlet,
     useNavigate
 } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getPendingCount } from "../services/SupportService";
 
 import AdminNavbar from "../components/AdminNavbar";
 import { FaGraduationCap } from "react-icons/fa";
@@ -24,6 +26,20 @@ import {
 function AdminLayout() {
 
     const navigate = useNavigate();
+    const [pendingCount, setPendingCount] = useState(0);
+
+    useEffect(() => {
+        loadPendingCount();
+    }, []);
+
+    const loadPendingCount = async () => {
+        try {
+            const response = await getPendingCount();
+            setPendingCount(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const logout = () => {
 
@@ -111,63 +127,70 @@ function AdminLayout() {
 
             <div
                 style={{
-                    width: "240px",
-                    background: "#f8fafc",
-                    borderRight: "1px solid #e5e7eb",
-                    padding: "20px",
+                    width: "260px",
+                    background: "#0f172a",
+                    padding: "20px 16px",
                     display: "flex",
                     flexDirection: "column"
                 }}
             >
 
+                {/* Logo */}
+
                 <div
                     style={{
                         display: "flex",
-                        flexDirection: "column",
                         alignItems: "center",
-                        marginBottom: "25px"
+                        gap: "12px",
+                        paddingBottom: "20px",
+                        marginBottom: "20px",
+                        borderBottom: "1px solid #1e293b"
                     }}
                 >
-
                     <div
                         style={{
-                            width: "60px",
-                            height: "60px",
-                            borderRadius: "50%",
-                            background: "#2563eb",
+                            width: "36px",
+                            height: "36px",
+                            borderRadius: "8px",
+                            background: "linear-gradient(135deg, #2563eb, #3b82f6)",
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            color: "white",
-                            fontSize: "28px",
-                            marginBottom: "10px"
+                            color: "#fff",
+                            fontSize: "18px",
+                            boxShadow: "0 4px 10px rgba(37,99,235,0.2)"
                         }}
                     >
-
                         <FaGraduationCap />
-
                     </div>
-
-                    <h2
-                        style={{
-                            margin: 0,
-                            color: "#2563eb"
-                        }}
-                    >
-                        Placement Portal
-                    </h2>
-
-                    <span
-                        style={{
-                            color: "#6b7280",
-                            fontSize: "13px"
-                        }}
-                    >
-                        Admin Panel
-                    </span>
-
+                    <div>
+                        <h2
+                            style={{
+                                margin: 0,
+                                color: "#ffffff",
+                                fontSize: "16px",
+                                fontWeight: "700"
+                            }}
+                        >
+                            Placement Portal
+                        </h2>
+                        <span
+                            style={{
+                                color: "#64748b",
+                                fontSize: "11px",
+                                fontWeight: "600",
+                                textTransform: "uppercase",
+                                letterSpacing: "0.5px"
+                            }}
+                        >
+                            Admin Panel
+                        </span>
+                    </div>
                 </div>
-                <div>
+
+                {/* Menu */}
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "2px", overflowY: "auto", flex: 1, paddingRight: "4px" }}>
 
                     {
 
@@ -185,11 +208,9 @@ function AdminLayout() {
 
                                     alignItems: "center",
 
-                                    gap: "10px",
+                                    gap: "12px",
 
                                     padding: "10px 14px",
-
-                                    marginBottom: "4px",
 
                                     borderRadius: "10px",
 
@@ -199,31 +220,46 @@ function AdminLayout() {
 
                                     fontWeight: "600",
 
+                                    fontSize: "14px",
+
                                     background: isActive
-                                        ? "#ffffff"
+                                        ? "#2563eb"
                                         : "transparent",
 
                                     color: isActive
-                                        ? "#2563eb"
-                                        : "#64748b",
-
-                                    borderLeft: isActive
-                                        ? "4px solid #2563eb"
-                                        : "4px solid transparent",
+                                        ? "#ffffff"
+                                        : "#94a3b8",
 
                                     boxShadow: isActive
-                                        ? "0 4px 15px rgba(37,99,235,0.15)"
+                                        ? "0 4px 12px rgba(37,99,235,0.25)"
                                         : "none"
 
                                 })}
 
                             >
 
-                                <span style={{ fontSize: "18px" }}>
+                                <span
+                                    style={{
+                                        fontSize: "18px",
+                                        display: "flex",
+                                        alignItems: "center"
+                                    }}
+                                >
                                     {menu.icon}
                                 </span>
 
-                                {menu.name}
+                                <span style={{ flex: 1 }}>{menu.name}</span>
+
+                                {menu.name === "Notifications" && pendingCount > 0 && (
+                                    <span
+                                        style={{
+                                            width: "8px",
+                                            height: "8px",
+                                            borderRadius: "50%",
+                                            background: "#ef4444"
+                                        }}
+                                    />
+                                )}
 
                             </NavLink>
 
@@ -231,35 +267,43 @@ function AdminLayout() {
 
                     }
 
+                    {/* Logout as a menu item */}
+                    <button
+                        onClick={logout}
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "12px",
+                            padding: "10px 14px",
+                            width: "100%",
+                            background: "transparent",
+                            border: "none",
+                            borderRadius: "10px",
+                            textAlign: "left",
+                            cursor: "pointer",
+                            fontWeight: "600",
+                            color: "#94a3b8",
+                            transition: ".25s",
+                            fontFamily: "inherit",
+                            fontSize: "14px",
+                            marginTop: "10px"
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = "#fee2e2";
+                            e.currentTarget.style.color = "#ef4444";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = "transparent";
+                            e.currentTarget.style.color = "#94a3b8";
+                        }}
+                    >
+                        <span style={{ fontSize: "18px", display: "flex", alignItems: "center" }}>
+                            <FaSignOutAlt />
+                        </span>
+                        <span>Logout</span>
+                    </button>
+
                 </div>
-                <div style={{ flex: 1 }} />
-
-                <button
-
-                    onClick={logout}
-
-                    style={{
-                        background: "#ef4444",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "12px",
-                        padding: "11px",
-                        cursor: "pointer",
-                        fontSize: "14px",
-                        fontWeight: "600",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: "10px"
-                    }}
-
-                >
-
-                    <FaSignOutAlt />
-
-                    Logout
-
-                </button>
 
             </div>
 
@@ -280,7 +324,8 @@ function AdminLayout() {
                     style={{
                         flex: 1,
                         overflowY: "auto",
-                        padding: "20px"
+                        padding: "24px",
+                        background: "#f8fafc"
                     }}
                 >
 

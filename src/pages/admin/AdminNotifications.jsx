@@ -4,6 +4,16 @@ import {
     markAsResolved
 } from "../../services/SupportService";
 
+import {
+    FaUserGraduate,
+    FaEnvelope,
+    FaCommentDots,
+    FaCheckCircle,
+    FaTools
+} from "react-icons/fa";
+
+import "./AdminNotifications.css";
+
 function AdminNotifications() {
 
     const [tickets, setTickets] = useState([]);
@@ -48,82 +58,128 @@ function AdminNotifications() {
 
     return (
 
-        <div>
+        <div className="support-container">
 
-            <h2>Support Tickets</h2>
+            <div className="support-header">
 
-            <hr />
+                <div>
 
-            <table
-                border="1"
-                cellPadding="10"
-                width="100%"
-                style={{ borderCollapse: "collapse" }}
-            >
+                    <h1>Support Tickets</h1>
 
-                <thead>
+                    <p>
+                        Review and resolve support requests submitted by students.
+                    </p>
 
-                    <tr>
+                </div>
 
-                        <th>Student ID</th>
+            </div>
 
-                        <th>Subject</th>
+            {
 
-                        <th>Message</th>
+                tickets.length === 0 ?
 
-                        <th>Status</th>
+                    <div className="empty-card">
 
-                        <th>Action</th>
+                        <h3>No Support Tickets</h3>
 
-                    </tr>
+                        <p>
+                            All support requests have been resolved.
+                        </p>
 
-                </thead>
+                    </div>
 
-                <tbody>
+                    :
 
-                    {
+                    <div className="support-grid">
 
-                        tickets.map(ticket => (
+                        {
 
-                            <tr key={ticket.id}>
+                            tickets.map(ticket => (
 
-                                <td>{ticket.studentId}</td>
+                                <div
+                                    key={ticket.id}
+                                    className="support-card"
+                                >
 
-                                <td>{ticket.subject}</td>
+                                    <div className="ticket-title">
 
-                                <td>{ticket.message}</td>
+                                        <FaUserGraduate />
 
-                                <td>{ticket.status}</td>
+                                        <h2>
 
-                                <td>
+                                            Student ID : {ticket.studentId}
+
+                                        </h2>
+
+                                    </div>
+
+                                    <p>
+
+                                        <FaEnvelope />
+
+                                        <strong>Subject :</strong>
+
+                                        {ticket.subject}
+
+                                    </p>
+
+                                    <p className="message">
+
+                                        <FaCommentDots />
+
+                                        <strong>Message :</strong>
+
+                                        {ticket.message}
+
+                                    </p>
+
+                                    <div className={`status-badge ${ticket.status.toLowerCase()}`}>
+
+                                        <FaCheckCircle />
+
+                                        {ticket.status}
+
+                                    </div>
 
                                     {
 
                                         ticket.status === "Pending" ?
 
                                             <button
+                                                className="resolve-btn"
                                                 onClick={() => resolveTicket(ticket.id)}
                                             >
-                                                Resolve
+
+                                                <FaTools />
+
+                                                Resolve Ticket
+
                                             </button>
 
                                             :
 
-                                            "Completed"
+                                            <button
+                                                className="completed-btn"
+                                                disabled
+                                            >
+
+                                                <FaCheckCircle />
+
+                                                Completed
+
+                                            </button>
 
                                     }
 
-                                </td>
+                                </div>
 
-                            </tr>
+                            ))
 
-                        ))
+                        }
 
-                    }
+                    </div>
 
-                </tbody>
-
-            </table>
+            }
 
         </div>
 

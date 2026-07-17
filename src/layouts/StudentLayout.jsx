@@ -3,6 +3,8 @@ import {
     Outlet,
     useNavigate
 } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getUnreadCount } from "../services/NotificationService";
 
 import StudentNavbar from "../components/StudentNavbar";
 
@@ -22,6 +24,20 @@ import {
 function StudentLayout() {
 
     const navigate = useNavigate();
+    const [unreadCount, setUnreadCount] = useState(0);
+    const studentId = localStorage.getItem("userId");
+
+    useEffect(() => {
+        if (studentId) {
+            getUnreadCount(studentId)
+                .then((response) => {
+                    setUnreadCount(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, [studentId]);
 
     const logout = () => {
 
@@ -100,7 +116,7 @@ function StudentLayout() {
                     width: "260px",
                     background: "#ffffff",
                     borderRight: "1px solid #e5e7eb",
-                    padding: "20px",
+                    padding: "20px 16px",
                     display: "flex",
                     flexDirection: "column"
                 }}
@@ -108,67 +124,47 @@ function StudentLayout() {
 
                 {/* Logo */}
 
-<div
-    style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        paddingBottom: "25px",
-        marginBottom: "20px",
-        borderBottom: "1px solid #e5e7eb"
-    }}
->
-
-    <div
-        style={{
-            width: "72px",
-            height: "72px",
-            borderRadius: "50%",
-            background: "linear-gradient(135deg,#2563eb,#3b82f6)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "#fff",
-            fontSize: "34px",
-            marginBottom: "18px",
-            boxShadow: "0 8px 20px rgba(37,99,235,0.25)"
-        }}
-    >
-        <FaGraduationCap />
-    </div>
-
-    <h2
-        style={{
-            margin: 0,
-            color: "#2563eb",
-            fontSize: "28px",
-            fontWeight: "700",
-            lineHeight: "1.2"
-        }}
-    >
-        Student
-        <br />
-        Portal
-    </h2>
-
-    <span
-        style={{
-            marginTop: "8px",
-            color: "#6b7280",
-            fontSize: "14px",
-            fontWeight: "500"
-        }}
-    >
-        Placement Cell
-    </span>
-
-</div>
+                <div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                        paddingBottom: "20px",
+                        marginBottom: "20px",
+                        borderBottom: "1px solid #e5e7eb"
+                    }}
+                >
+                    <div
+                        style={{
+                            width: "36px",
+                            height: "36px",
+                            borderRadius: "8px",
+                            background: "linear-gradient(135deg, #2563eb, #3b82f6)",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            color: "#fff",
+                            fontSize: "18px",
+                            boxShadow: "0 4px 10px rgba(37,99,235,0.2)"
+                        }}
+                    >
+                        <FaGraduationCap />
+                    </div>
+                    <h2
+                        style={{
+                            margin: 0,
+                            color: "#2563eb",
+                            fontSize: "18px",
+                            fontWeight: "700"
+                        }}
+                    >
+                        Placement Portal
+                    </h2>
+                </div>
 
                 {/* Menu */}
 
-                <div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
 
                     {
 
@@ -186,11 +182,9 @@ function StudentLayout() {
 
                                     alignItems: "center",
 
-                                    gap: "10px",
+                                    gap: "12px",
 
                                     padding: "10px 14px",
-
-                                    marginBottom: "4px",
 
                                     borderRadius: "10px",
 
@@ -209,7 +203,7 @@ function StudentLayout() {
                                         : "#6b7280",
 
                                     boxShadow: isActive
-                                        ? "0 2px 8px rgba(0,0,0,0.08)"
+                                        ? "0 2px 8px rgba(0,0,0,0.04)"
                                         : "none"
 
                                 })}
@@ -218,13 +212,26 @@ function StudentLayout() {
 
                                 <span
                                     style={{
-                                        fontSize: "18px"
+                                        fontSize: "18px",
+                                        display: "flex",
+                                        alignItems: "center"
                                     }}
                                 >
                                     {menu.icon}
                                 </span>
 
-                                {menu.name}
+                                <span style={{ flex: 1 }}>{menu.name}</span>
+
+                                {menu.name === "Notifications" && unreadCount > 0 && (
+                                    <span
+                                        style={{
+                                            width: "8px",
+                                            height: "8px",
+                                            borderRadius: "50%",
+                                            background: "#2563eb"
+                                        }}
+                                    />
+                                )}
 
                             </NavLink>
 
@@ -232,38 +239,42 @@ function StudentLayout() {
 
                     }
 
+                    {/* Logout as a menu item */}
+                    <button
+                        onClick={logout}
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "12px",
+                            padding: "10px 14px",
+                            width: "100%",
+                            background: "transparent",
+                            border: "none",
+                            borderRadius: "10px",
+                            textAlign: "left",
+                            cursor: "pointer",
+                            fontWeight: "600",
+                            color: "#6b7280",
+                            transition: ".25s",
+                            fontFamily: "inherit",
+                            fontSize: "16px"
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = "#fee2e2";
+                            e.currentTarget.style.color = "#ef4444";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = "transparent";
+                            e.currentTarget.style.color = "#6b7280";
+                        }}
+                    >
+                        <span style={{ fontSize: "18px", display: "flex", alignItems: "center" }}>
+                            <FaSignOutAlt />
+                        </span>
+                        <span>Logout</span>
+                    </button>
+
                 </div>
-
-                <div style={{ flex: 1 }} />
-
-                {/* Logout */}
-
-                <button
-
-                    onClick={logout}
-
-                    style={{
-                        background: "#ef4444",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "12px",
-                        padding: "11px",
-                        cursor: "pointer",
-                        fontSize: "14px",
-                        fontWeight: "600",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: "10px"
-                    }}
-
-                >
-
-                    <FaSignOutAlt />
-
-                    Logout
-
-                </button>
 
             </div>
 

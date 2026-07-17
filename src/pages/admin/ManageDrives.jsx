@@ -5,6 +5,19 @@ import {
     deleteDrive
 } from "../../services/DriveService";
 
+import {
+    FaBuilding,
+    FaBriefcase,
+    FaMoneyBillWave,
+    FaGraduationCap,
+    FaBook,
+    FaCalendarAlt,
+    FaMapMarkerAlt,
+    FaPlus
+} from "react-icons/fa";
+
+import "./ManageDrives.css";
+
 function ManageDrives() {
 
     const [drives, setDrives] = useState([]);
@@ -55,128 +68,169 @@ function ManageDrives() {
 
     return (
 
-        <div style={{ padding: "30px" }}>
+        <div className="manage-drives">
 
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: "20px"
-                }}
-            >
+            <div className="drives-header">
 
-                <h2>Manage Company Drives</h2>
+                <div>
+
+                    <h1>Manage Company Drives</h1>
+
+                    <p>
+                        Create, update and manage placement drives.
+                    </p>
+
+                </div>
 
                 <Link
                     to="/add-drive"
-                    style={{
-                        background: "#2563eb",
-                        color: "white",
-                        padding: "10px 18px",
-                        textDecoration: "none",
-                        borderRadius: "5px"
-                    }}
+                    className="add-btn"
                 >
-                    + Add Drive
+
+                    <FaPlus />
+
+                    Add Drive
+
                 </Link>
 
             </div>
 
-            <table
-                border="1"
-                cellPadding="10"
-                cellSpacing="0"
-                width="100%"
-            >
+            {
 
-                <thead>
+                drives.length === 0 ?
 
-                    <tr>
+                    <div className="no-drives">
 
-                        <th>ID</th>
+                        <h3>No Company Drives Available</h3>
 
-                        <th>Company</th>
+                        <p>
+                            Click "Add Drive" to create your first company drive.
+                        </p>
 
-                        <th>Role</th>
+                    </div>
 
-                        <th>Package</th>
+                    :
 
-                        <th>CGPA</th>
+                    <div className="drives-grid">
 
-                        <th>Department</th>
+                        {
 
-                        <th>Backlogs</th>
+                            drives.map((drive) => (
 
-                        <th>Date</th>
+                                <div
+                                    key={drive.id}
+                                    className="drive-card"
+                                >
 
-                        <th>Location</th>
+                                    <div className="company-title">
 
-                        <th>Action</th>
+                                        <FaBuilding />
 
-                    </tr>
+                                        <h2>{drive.companyName}</h2>
 
-                </thead>
+                                    </div>
 
-                <tbody>
+                                    <p>
 
-                    {
+                                        <FaBriefcase />
 
-                        drives.map((drive) => (
+                                        <strong>Role :</strong>
 
-                            <tr key={drive.id}>
+                                        {drive.jobRole}
 
-                                <td>{drive.id}</td>
+                                    </p>
 
-                                <td>{drive.companyName}</td>
+                                    <p>
 
-                                <td>{drive.jobRole}</td>
+                                        <FaMoneyBillWave />
 
-                                <td>{drive.packageOffered}</td>
+                                        <strong>Package :</strong>
 
-                                <td>{drive.minCgpa}</td>
+                                        {drive.packageOffered} LPA
 
-                                <td>{drive.department}</td>
+                                    </p>
 
-                                <td>{drive.maxBacklogs}</td>
+                                    <p>
 
-                                <td>{drive.driveDate}</td>
+                                        <FaGraduationCap />
 
-                                <td>{drive.location}</td>
+                                        <strong>Minimum CGPA :</strong>
 
-                                <td>
+                                        {drive.minCgpa}
 
-                                    <Link
-                                        to={`/edit-drive/${drive.id}`}
-                                    >
-                                        Edit
-                                    </Link>
+                                    </p>
 
-                                    {" | "}
+                                    <p>
 
-                                    <button
-                                        onClick={() => removeDrive(drive.id)}
-                                        style={{
-                                            border: "none",
-                                            background: "transparent",
-                                            color: "red",
-                                            cursor: "pointer"
-                                        }}
-                                    >
-                                        Delete
-                                    </button>
+                                        <FaBook />
 
-                                </td>
+                                        <strong>Backlogs :</strong>
 
-                            </tr>
+                                        {drive.maxBacklogs}
 
-                        ))
+                                    </p>
 
-                    }
+                                    <p>
 
-                </tbody>
+                                        <FaGraduationCap />
 
-            </table>
+                                        <strong>Department :</strong>
+
+                                        {drive.department}
+
+                                    </p>
+
+                                    <p>
+
+                                        <FaCalendarAlt />
+
+                                        <strong>Date :</strong>
+
+                                        {drive.driveDate}
+
+                                    </p>
+
+                                    <p>
+
+                                        <FaMapMarkerAlt />
+
+                                        <strong>Location :</strong>
+
+                                        {drive.location}
+
+                                    </p>
+
+                                    <div className="button-group">
+
+                                        <Link
+                                            to={`/edit-drive/${drive.id}`}
+                                            className="edit-btn"
+                                        >
+
+                                            Edit
+
+                                        </Link>
+
+                                        <button
+                                            className="delete-btn"
+                                            onClick={() => removeDrive(drive.id)}
+                                        >
+
+                                            Delete
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            ))
+
+                        }
+
+                    </div>
+
+            }
 
         </div>
 

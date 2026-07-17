@@ -4,6 +4,16 @@ import {
     updateStatus
 } from "../../services/ApplicationService";
 
+import {
+    FaUserGraduate,
+    FaBuilding,
+    FaBriefcase,
+    FaFilePdf,
+    FaClipboardCheck
+} from "react-icons/fa";
+
+import "./ManageApplications.css";
+
 function ManageApplications() {
 
     const [applications, setApplications] = useState([]);
@@ -48,111 +58,169 @@ function ManageApplications() {
 
     return (
 
-        <div style={{ padding: "30px" }}>
+        <div className="manage-applications">
 
-            <h2>Manage Applications</h2>
+            <div className="applications-header">
 
-            <hr />
+                <div>
 
-            <table
-                border="1"
-                cellPadding="10"
-                cellSpacing="0"
-                width="100%"
-                style={{ borderCollapse: "collapse" }}
-            >
+                    <h1>Manage Applications</h1>
 
-                <thead>
+                    <p>
+                        Review student applications and update their placement status.
+                    </p>
 
-                    <tr>
+                </div>
 
-                        <th>Student</th>
+            </div>
 
-                        <th>Company</th>
+            {
 
-                        <th>Job Role</th>
+                applications.length === 0 ?
 
-                        <th>Resume</th>
+                    <div className="no-applications">
 
-                        <th>Status</th>
+                        <h3>No Applications Found</h3>
 
-                        <th>Change Status</th>
+                        <p>
+                            Student applications will appear here.
+                        </p>
 
-                    </tr>
+                    </div>
 
-                </thead>
+                    :
 
-                <tbody>
+                    <div className="applications-grid">
 
-                    {
+                        {
 
-                        applications.map(application => (
+                            applications.map(application => (
 
-                            <tr key={application.id}>
+                                <div
+                                    key={application.id}
+                                    className="application-card"
+                                >
 
-                                <td>{application.student.name}</td>
+                                    <div className="card-title">
 
-                                <td>{application.drive.companyName}</td>
+                                        <FaUserGraduate />
 
-                                <td>{application.drive.jobRole}</td>
+                                        <h2>
+                                            {application.student.name}
+                                        </h2>
 
-                                <td>
+                                    </div>
 
-                                    {
+                                    <p>
 
-                                        application.student.resume ?
+                                        <FaBuilding />
 
-                                            <a
-                                                href={`http://localhost:8080/uploads/${application.student.resume}`}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
-                                                View Resume
-                                            </a>
+                                        <strong>Company :</strong>
 
-                                            :
+                                        {application.drive.companyName}
 
-                                            "No Resume"
+                                    </p>
 
-                                    }
+                                    <p>
 
-                                </td>
+                                        <FaBriefcase />
 
-                                <td>{application.status}</td>
+                                        <strong>Role :</strong>
 
-                                <td>
+                                        {application.drive.jobRole}
 
-                                    <select
-                                        value={application.status}
-                                        onChange={(e) =>
-                                            changeStatus(
-                                                application.id,
-                                                e.target.value
-                                            )
+                                    </p>
+
+                                    <div className="resume-section">
+
+                                        {
+
+                                            application.student.resume ?
+
+                                                <a
+                                                    href={`http://localhost:8080/uploads/${application.student.resume}`}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="resume-btn"
+                                                >
+
+                                                    <FaFilePdf />
+
+                                                    View Resume
+
+                                                </a>
+
+                                                :
+
+                                                <span className="no-resume">
+
+                                                    No Resume Uploaded
+
+                                                </span>
+
                                         }
-                                    >
 
-                                        <option value="Applied">Applied</option>
+                                    </div>
 
-                                        <option value="Shortlisted">Shortlisted</option>
+                                    <div className="status-section">
 
-                                        <option value="Selected">Selected</option>
+                                        <span className={`status ${application.status.toLowerCase()}`}>
 
-                                        <option value="Rejected">Rejected</option>
+                                            <FaClipboardCheck />
 
-                                    </select>
+                                            {application.status}
 
-                                </td>
+                                        </span>
 
-                            </tr>
+                                    </div>
 
-                        ))
+                                    <div className="select-section">
 
-                    }
+                                        <label>
 
-                </tbody>
+                                            Change Status
 
-            </table>
+                                        </label>
+
+                                        <select
+                                            value={application.status}
+                                            onChange={(e) =>
+                                                changeStatus(
+                                                    application.id,
+                                                    e.target.value
+                                                )
+                                            }
+                                        >
+
+                                            <option value="Applied">
+                                                Applied
+                                            </option>
+
+                                            <option value="Shortlisted">
+                                                Shortlisted
+                                            </option>
+
+                                            <option value="Selected">
+                                                Selected
+                                            </option>
+
+                                            <option value="Rejected">
+                                                Rejected
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                            ))
+
+                        }
+
+                    </div>
+
+            }
 
         </div>
 

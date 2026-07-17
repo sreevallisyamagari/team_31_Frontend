@@ -1,6 +1,18 @@
 import { useEffect, useState } from "react";
 import { getApplicationsByStatus } from "../../services/ApplicationService";
 
+import {
+    FaUserGraduate,
+    FaBuilding,
+    FaBriefcase,
+    FaGraduationCap,
+    FaPhone,
+    FaFilePdf,
+    FaTrophy
+} from "react-icons/fa";
+
+import "./SelectedStudents.css";
+
 function SelectedStudents() {
 
     const [students, setStudents] = useState([]);
@@ -27,92 +39,159 @@ function SelectedStudents() {
 
     return (
 
-        <div style={{ padding: "30px" }}>
+        <div className="selected-container">
 
-            <h2>Selected Students</h2>
+            <div className="selected-header">
 
-            <hr />
+                <div>
 
-            <table
-                border="1"
-                cellPadding="10"
-                width="100%"
-                style={{ borderCollapse: "collapse" }}
-            >
+                    <h1>Selected Students</h1>
 
-                <thead>
+                    <p>
+                        Congratulations to students who have successfully secured placement offers.
+                    </p>
 
-                    <tr>
+                </div>
 
-                        <th>Student Name</th>
+            </div>
 
-                        <th>Company</th>
+            {
 
-                        <th>Job Role</th>
+                students.length === 0 ?
 
-                        <th>Department</th>
+                    <div className="empty-card">
 
-                        <th>CGPA</th>
+                        <h3>No Selected Students</h3>
 
-                        <th>Phone</th>
+                        <p>
+                            Selected students will appear here once the recruitment process is completed.
+                        </p>
 
-                        <th>Resume</th>
+                    </div>
 
-                    </tr>
+                    :
 
-                </thead>
+                    <div className="selected-grid">
 
-                <tbody>
+                        {
 
-                    {
+                            students.map((application) => (
 
-                        students.map((application) => (
+                                <div
+                                    key={application.id}
+                                    className="selected-card"
+                                >
 
-                            <tr key={application.id}>
+                                    <div className="student-title">
 
-                                <td>{application.student.name}</td>
+                                        <FaUserGraduate />
 
-                                <td>{application.drive.companyName}</td>
+                                        <h2>
 
-                                <td>{application.drive.jobRole}</td>
+                                            {application.student.name}
 
-                                <td>{application.student.department}</td>
+                                        </h2>
 
-                                <td>{application.student.cgpa}</td>
+                                    </div>
 
-                                <td>{application.student.phone}</td>
+                                    <p>
 
-                                <td>
+                                        <FaBuilding />
 
-                                    {
+                                        <strong>Company :</strong>
 
-                                        application.student.resume ?
+                                        {application.drive.companyName}
 
-                                            <a
-                                                href={`http://localhost:8080/uploads/${application.student.resume}`}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
-                                                View Resume
-                                            </a>
+                                    </p>
 
-                                            :
+                                    <p>
 
-                                            "No Resume"
+                                        <FaBriefcase />
 
-                                    }
+                                        <strong>Job Role :</strong>
 
-                                </td>
+                                        {application.drive.jobRole}
 
-                            </tr>
+                                    </p>
 
-                        ))
+                                    <p>
 
-                    }
+                                        <FaGraduationCap />
 
-                </tbody>
+                                        <strong>Department :</strong>
 
-            </table>
+                                        {application.student.department}
+
+                                    </p>
+
+                                    <p>
+
+                                        <FaGraduationCap />
+
+                                        <strong>CGPA :</strong>
+
+                                        {application.student.cgpa}
+
+                                    </p>
+
+                                    <p>
+
+                                        <FaPhone />
+
+                                        <strong>Phone :</strong>
+
+                                        {application.student.phone}
+
+                                    </p>
+
+                                    <div className="resume-section">
+
+                                        {
+
+                                            application.student.resume ?
+
+                                                <a
+                                                    href={`http://localhost:8080/uploads/${application.student.resume}`}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="resume-btn"
+                                                >
+
+                                                    <FaFilePdf />
+
+                                                    View Resume
+
+                                                </a>
+
+                                                :
+
+                                                <span className="no-resume">
+
+                                                    No Resume Uploaded
+
+                                                </span>
+
+                                        }
+
+                                    </div>
+
+                                    <div className="selected-badge">
+
+                                        <FaTrophy />
+
+                                        Selected
+
+                                    </div>
+
+                                </div>
+
+                            ))
+
+                        }
+
+                    </div>
+
+            }
 
         </div>
 

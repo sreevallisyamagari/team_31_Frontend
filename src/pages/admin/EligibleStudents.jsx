@@ -6,6 +6,21 @@ import {
 } from "../../services/DriveService";
 import { getEligibleStudents } from "../../services/EligibleStudentService";
 
+import {
+    FaBuilding,
+    FaSearch,
+    FaMoneyBillWave,
+    FaGraduationCap,
+    FaBook,
+    FaCalendarAlt,
+    FaMapMarkerAlt,
+    FaUserGraduate,
+    FaFilePdf,
+    FaEye
+} from "react-icons/fa";
+
+import "./EligibleStudents.css";
+
 function EligibleStudents() {
 
     const navigate = useNavigate();
@@ -65,188 +80,276 @@ function EligibleStudents() {
 
     return (
 
-        <div style={{ padding: "30px" }}>
+        <div className="eligible-container">
 
-            <h2>Eligible Students</h2>
+            <div className="eligible-header">
 
-            <br />
+                <div>
 
-            <select
-                value={selectedDrive}
-                onChange={(e) => setSelectedDrive(e.target.value)}
-            >
+                    <h1>Eligible Students</h1>
 
-                <option value="">
-                    Select Company Drive
-                </option>
-
-                {
-                    drives.map((drive) => (
-
-                        <option
-                            key={drive.id}
-                            value={drive.id}
-                        >
-                            {drive.companyName} - {drive.jobRole}
-                        </option>
-
-                    ))
-                }
-
-            </select>
-
-            <button
-                onClick={searchEligibleStudents}
-                style={{
-                    marginLeft: "15px",
-                    padding: "8px 15px",
-                    cursor: "pointer"
-                }}
-            >
-                Search
-            </button>
-
-            <br /><br />
-
-            {drive && (
-
-                <div
-                    style={{
-                        border: "1px solid #ddd",
-                        padding: "20px",
-                        borderRadius: "8px",
-                        marginBottom: "25px",
-                        background: "#f8f9fa"
-                    }}
-                >
-
-                    <h3>Drive Details</h3>
-
-                    <hr />
-
-                    <p><b>Company :</b> {drive.companyName}</p>
-
-                    <p><b>Job Role :</b> {drive.jobRole}</p>
-
-                    <p><b>Package :</b> {drive.packageOffered} LPA</p>
-
-                    <p><b>Department :</b> {drive.department}</p>
-
-                    <p><b>Minimum CGPA :</b> {drive.minCgpa}</p>
-
-                    <p><b>Maximum Backlogs :</b> {drive.maxBacklogs}</p>
-
-                    <p><b>Drive Date :</b> {drive.driveDate}</p>
-
-                    <p><b>Location :</b> {drive.location}</p>
+                    <p>
+                        Find students eligible for a selected placement drive.
+                    </p>
 
                 </div>
 
-            )}
+            </div>
 
-            <h3>
-                Eligible Students ({students.length})
-            </h3>
+            <div className="search-card">
 
-            <table
-                border="1"
-                cellPadding="10"
-                width="100%"
-                style={{
-                    borderCollapse: "collapse"
-                }}
-            >
+                <select
+                    value={selectedDrive}
+                    onChange={(e) => setSelectedDrive(e.target.value)}
+                >
 
-                <thead>
-
-                    <tr>
-
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Branch</th>
-                        <th>CGPA</th>
-                        <th>Backlogs</th>
-                        <th>Resume</th>
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
+                    <option value="">
+                        Select Company Drive
+                    </option>
 
                     {
 
-                        students.length > 0 ?
+                        drives.map((drive) => (
 
-                            students.map((student) => (
+                            <option
+                                key={drive.id}
+                                value={drive.id}
+                            >
 
-                                <tr key={student.id}>
+                                {drive.companyName} - {drive.jobRole}
 
-                                    <td>{student.id}</td>
+                            </option>
 
-                                    <td>{student.name}</td>
-
-                                    <td>{student.department}</td>
-
-                                    <td>{student.cgpa}</td>
-
-                                    <td>{student.backlogs}</td>
-
-                                    <td>
-
-                                        <a
-                                            href={`http://localhost:8080/uploads/${student.resume}`}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                        >
-                                            View Resume
-                                        </a>
-
-                                    </td>
-
-                                    <td>
-
-                                        <button
-                                            onClick={() => navigate(`/student-details/${student.id}`)}
-                                            style={{
-                                                padding: "6px 12px",
-                                                background: "#2563eb",
-                                                color: "white",
-                                                border: "none",
-                                                borderRadius: "5px",
-                                                cursor: "pointer"
-                                            }}
-                                        >
-                                            View
-                                        </button>
-
-                                    </td>
-
-                                </tr>
-
-                            ))
-
-                            :
-
-                            <tr>
-
-                                <td
-                                    colSpan="7"
-                                    style={{
-                                        textAlign: "center"
-                                    }}
-                                >
-                                    No Eligible Students Found
-                                </td>
-
-                            </tr>
+                        ))
 
                     }
 
-                </tbody>
+                </select>
 
-            </table>
+                <button
+                    onClick={searchEligibleStudents}
+                >
+
+                    <FaSearch />
+
+                    Search
+
+                </button>
+
+            </div>
+
+            {
+
+                drive && (
+
+                    <div className="drive-details">
+
+                        <div className="drive-title">
+
+                            <FaBuilding />
+
+                            <h2>
+
+                                {drive.companyName}
+
+                            </h2>
+
+                        </div>
+
+                        <p>
+
+                            <strong>Role :</strong>
+
+                            {drive.jobRole}
+
+                        </p>
+
+                        <p>
+
+                            <FaMoneyBillWave />
+
+                            <strong>Package :</strong>
+
+                            {drive.packageOffered} LPA
+
+                        </p>
+
+                        <p>
+
+                            <FaGraduationCap />
+
+                            <strong>Department :</strong>
+
+                            {drive.department}
+
+                        </p>
+
+                        <p>
+
+                            <FaGraduationCap />
+
+                            <strong>Minimum CGPA :</strong>
+
+                            {drive.minCgpa}
+
+                        </p>
+
+                        <p>
+
+                            <FaBook />
+
+                            <strong>Maximum Backlogs :</strong>
+
+                            {drive.maxBacklogs}
+
+                        </p>
+
+                        <p>
+
+                            <FaCalendarAlt />
+
+                            <strong>Drive Date :</strong>
+
+                            {drive.driveDate}
+
+                        </p>
+
+                        <p>
+
+                            <FaMapMarkerAlt />
+
+                            <strong>Location :</strong>
+
+                            {drive.location}
+
+                        </p>
+
+                    </div>
+
+                )
+
+            }
+
+            <h2 className="student-count">
+
+                Eligible Students ({students.length})
+
+            </h2>
+
+            {
+
+                students.length === 0 ?
+
+                    <div className="empty-card">
+
+                        <h3>No Eligible Students Found</h3>
+
+                        <p>
+
+                            Select a company drive to view eligible students.
+
+                        </p>
+
+                    </div>
+
+                    :
+
+                    <div className="students-grid">
+
+                        {
+
+                            students.map(student => (
+
+                                <div
+                                    key={student.id}
+                                    className="student-card"
+                                >
+
+                                    <div className="student-title">
+
+                                        <FaUserGraduate />
+
+                                        <h3>
+
+                                            {student.name}
+
+                                        </h3>
+
+                                    </div>
+
+                                    <p>
+
+                                        <strong>Department :</strong>
+
+                                        {student.department}
+
+                                    </p>
+
+                                    <p>
+
+                                        <strong>CGPA :</strong>
+
+                                        {student.cgpa}
+
+                                    </p>
+
+                                    <p>
+
+                                        <strong>Backlogs :</strong>
+
+                                        {student.backlogs}
+
+                                    </p>
+
+                                    {
+
+                                        student.resume ?
+
+                                            <a
+                                                href={`http://localhost:8080/uploads/${student.resume}`}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="resume-btn"
+                                            >
+
+                                                <FaFilePdf />
+
+                                                View Resume
+
+                                            </a>
+
+                                            :
+
+                                            <span className="no-resume">
+
+                                                No Resume Uploaded
+
+                                            </span>
+
+                                    }
+
+                                    <button
+                                        className="view-btn"
+                                        onClick={() =>
+                                            navigate(`/student-details/${student.id}`)
+                                        }
+                                    >
+
+                                        <FaEye />
+
+                                        View Details
+
+                                    </button>
+
+                                </div>
+
+                            ))
+
+                        }
+
+                    </div>
+
+            }
 
         </div>
 

@@ -1,0 +1,169 @@
+.manage-drives{
+    padding:30px;
+}
+
+.drives-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.drives-header h1{
+    margin:0;
+    font-size:38px;
+    color:#1f2937;
+}
+
+.drives-header p{
+    margin-top:8px;
+    color:#6b7280;
+}
+
+.add-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:12px 22px;
+    border-radius:12px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.add-btn:hover{
+    background:#1d4ed8;
+}
+
+.drives-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:25px;
+}
+
+.drive-card{
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.drive-card:hover{
+    transform:translateY(-5px);
+}
+
+.company-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.company-title svg{
+    font-size:26px;
+    color:#2563eb;
+}
+
+.company-title h2{
+    margin:0;
+    color:#2563eb;
+    font-size:26px;
+}
+
+.drive-card p{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:12px 0;
+    color:#4b5563;
+}
+
+.drive-card p svg{
+    color:#2563eb;
+    min-width:18px;
+}
+
+.drive-card strong{
+    color:#111827;
+}
+
+.button-group{
+    display:flex;
+    gap:15px;
+    margin-top:25px;
+}
+
+.edit-btn{
+    flex:1;
+    text-align:center;
+    text-decoration:none;
+    background:#2563eb;
+    color:white;
+    padding:12px;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.edit-btn:hover{
+    background:#1d4ed8;
+}
+
+.delete-btn{
+    flex:1;
+    border:none;
+    background:#ef4444;
+    color:white;
+    padding:12px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+
+.delete-btn:hover{
+    background:#dc2626;
+}
+
+.no-drives{
+    background:white;
+    padding:50px;
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.no-drives h3{
+    color:#2563eb;
+    margin-bottom:10px;
+}
+
+.no-drives p{
+    color:#6b7280;
+}
+
+@media(max-width:768px){
+
+.drives-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:20px;
+}
+
+.drives-grid{
+    grid-template-columns:1fr;
+}
+
+.add-btn{
+    width:100%;
+    justify-content:center;
+}
+
+.button-group{
+    flex-direction:column;
+}
+
+}

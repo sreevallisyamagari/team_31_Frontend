@@ -1,0 +1,124 @@
+.reports-container{
+    padding:30px;
+}
+
+.reports-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.reports-header h1{
+    margin:0;
+    font-size:38px;
+    color:#1f2937;
+}
+
+.reports-header p{
+    margin-top:8px;
+    color:#6b7280;
+    font-size:16px;
+}
+
+.reports-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.report-card{
+    background:#ffffff;
+    border-radius:18px;
+    padding:30px 25px;
+    border:1px solid #e5e7eb;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    text-align:center;
+    transition:.3s;
+}
+
+.report-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 12px 30px rgba(0,0,0,.12);
+}
+
+.report-icon{
+    font-size:45px;
+    color:#2563eb;
+    margin-bottom:18px;
+}
+
+.report-card h3{
+    margin:0;
+    color:#4b5563;
+    font-size:18px;
+    font-weight:600;
+}
+
+.report-card h2{
+    margin-top:15px;
+    font-size:38px;
+    font-weight:700;
+    color:#111827;
+}
+
+/* Status Card Colors */
+
+.report-card.applied{
+    border-top:6px solid #2563eb;
+}
+
+.report-card.shortlisted{
+    border-top:6px solid #f59e0b;
+}
+
+.report-card.selected{
+    border-top:6px solid #10b981;
+}
+
+.report-card.rejected{
+    border-top:6px solid #ef4444;
+}
+
+/* Icon Colors */
+
+.report-card.applied .report-icon{
+    color:#2563eb;
+}
+
+.report-card.shortlisted .report-icon{
+    color:#f59e0b;
+}
+
+.report-card.selected .report-icon{
+    color:#10b981;
+}
+
+.report-card.rejected .report-icon{
+    color:#ef4444;
+}
+
+@media(max-width:768px){
+
+    .reports-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .reports-grid{
+        grid-template-columns:1fr;
+    }
+
+    .report-card{
+        padding:25px;
+    }
+
+    .report-card h2{
+        font-size:32px;
+    }
+
+    .report-icon{
+        font-size:40px;
+    }
+
+}

@@ -1,6 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import {
+    FaUserShield,
+    FaEnvelope,
+    FaLock,
+    FaKey,
+    FaSignOutAlt
+} from "react-icons/fa";
+
+import "./Settings.css";
+
 function Settings() {
 
     const navigate = useNavigate();
@@ -35,53 +45,102 @@ function Settings() {
 
     return (
 
-        <div>
+        <div className="settings-container">
 
-            <h2>Settings</h2>
+            <div className="settings-header">
 
-            <hr />
+                <div>
 
-            <h3>Admin Profile</h3>
+                    <h1>Settings</h1>
 
-            <p><b>Name :</b> Placement Coordinator</p>
+                    <p>
+                        Manage your account settings and security.
+                    </p>
 
-            <p><b>Email :</b> admin@gmail.com</p>
+                </div>
 
-            <br />
+            </div>
 
-            <h3>Change Password</h3>
+            <div className="settings-grid">
 
-            <input
-                type="password"
-                placeholder="Enter New Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
+                <div className="profile-card">
 
-            <br /><br />
+                    <div className="profile-title">
 
-            <button onClick={changePassword}>
+                        <FaUserShield />
 
-                Change Password
+                        <h2>Admin Profile</h2>
 
-            </button>
+                    </div>
 
-            <br /><br />
+                    <p>
 
-            <button
-                onClick={logout}
-                style={{
-                    background: "red",
-                    color: "white",
-                    padding: "10px",
-                    border: "none",
-                    cursor: "pointer"
-                }}
-            >
+                        <FaUserShield />
 
-                Logout
+                        <strong>Name :</strong>
 
-            </button>
+                        Placement Coordinator
+
+                    </p>
+
+                    <p>
+
+                        <FaEnvelope />
+
+                        <strong>Email :</strong>
+
+                        admin@gmail.com
+
+                    </p>
+
+                </div>
+
+                <div className="password-card">
+
+                    <div className="profile-title">
+
+                        <FaLock />
+
+                        <h2>Change Password</h2>
+
+                    </div>
+
+                    <input
+                        type="password"
+                        placeholder="Enter New Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+
+                    <button
+                        className="change-btn"
+                        onClick={changePassword}
+                    >
+
+                        <FaKey />
+
+                        Change Password
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div className="logout-section">
+
+                <button
+                    className="logout-btn"
+                    onClick={logout}
+                >
+
+                    <FaSignOutAlt />
+
+                    Logout
+
+                </button>
+
+            </div>
 
         </div>
 
