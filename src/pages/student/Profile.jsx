@@ -2,6 +2,7 @@ import "./Profile.css";
 
 import { useEffect, useState } from "react";
 import { getProfile } from "../../services/StudentService";
+import { useNavigate } from "react-router-dom";
 
 import {
     FaUserCircle,
@@ -17,6 +18,7 @@ import {
 function Profile() {
 
     const [profile, setProfile] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         loadProfile();
@@ -128,13 +130,13 @@ function Profile() {
 
             </div>
 
-            <button className="edit-btn">
-
-                <FaUserEdit />
-
-                Edit Profile
-
-            </button>
+            <button
+    className="edit-btn"
+    onClick={() => navigate("/edit-profile")}
+>
+    <FaUserEdit />
+    Edit Profile
+</button>
 
         </div>
 

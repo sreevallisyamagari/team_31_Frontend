@@ -27,6 +27,7 @@ import Reports from "./pages/admin/Reports";
 import AdminNotifications from "./pages/admin/AdminNotifications";
 import EditStudent from "./pages/admin/EditStudent";
 import Settings from "./pages/admin/Settings";
+import EditProfile from "./pages/student/EditProfile";
 
 import AdminLayout from "./layouts/AdminLayout";
 
@@ -61,6 +62,10 @@ function App() {
         path="/applications"
         element={<MyApplications />}
     />
+    <Route
+    path="/edit-profile"
+    element={<EditProfile />}
+/>
 
     <Route
         path="/profile"

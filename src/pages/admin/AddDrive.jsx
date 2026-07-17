@@ -1,3 +1,5 @@
+import "./AddDrive.css";
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addDrive } from "../../services/DriveService";
@@ -50,108 +52,153 @@ function AddDrive() {
 
     return (
 
-        <div style={{ padding: "30px" }}>
+        <div className="add-drive-container">
 
-            <h2>Add Company Drive</h2>
+            <div className="add-drive-card">
 
-            <form onSubmit={saveDrive}>
+                <div className="add-drive-header">
 
-                <input
-                    type="text"
-                    name="companyName"
-                    placeholder="Company Name"
-                    value={drive.companyName}
-                    onChange={handleChange}
-                    required
-                />
+                    <h2>Add Company Drive</h2>
 
-                <br /><br />
+                    <p>
+                        Register a new placement opportunity for students.
+                    </p>
 
-                <input
-                    type="text"
-                    name="jobRole"
-                    placeholder="Job Role"
-                    value={drive.jobRole}
-                    onChange={handleChange}
-                    required
-                />
+                </div>
 
-                <br /><br />
+                <form className="drive-form" onSubmit={saveDrive}>
 
-                <input
-                    type="number"
-                    step="0.1"
-                    name="packageOffered"
-                    placeholder="Package (LPA)"
-                    value={drive.packageOffered}
-                    onChange={handleChange}
-                    required
-                />
+                    <div className="form-group">
 
-                <br /><br />
+                        <label>Company Name</label>
 
-                <input
-                    type="number"
-                    step="0.1"
-                    name="minCgpa"
-                    placeholder="Minimum CGPA"
-                    value={drive.minCgpa}
-                    onChange={handleChange}
-                    required
-                />
+                        <input
+                            type="text"
+                            name="companyName"
+                            value={drive.companyName}
+                            onChange={handleChange}
+                            placeholder="Enter Company Name"
+                            required
+                        />
 
-                <br /><br />
+                    </div>
 
-                <input
-                    type="text"
-                    name="department"
-                    placeholder="Department"
-                    value={drive.department}
-                    onChange={handleChange}
-                    required
-                />
+                    <div className="form-group">
 
-                <br /><br />
+                        <label>Job Role</label>
 
-                <input
-                    type="number"
-                    name="maxBacklogs"
-                    placeholder="Maximum Backlogs"
-                    value={drive.maxBacklogs}
-                    onChange={handleChange}
-                    required
-                />
+                        <input
+                            type="text"
+                            name="jobRole"
+                            value={drive.jobRole}
+                            onChange={handleChange}
+                            placeholder="Enter Job Role"
+                            required
+                        />
 
-                <br /><br />
+                    </div>
 
-                <input
-                    type="date"
-                    name="driveDate"
-                    value={drive.driveDate}
-                    onChange={handleChange}
-                    required
-                />
+                    <div className="form-group">
 
-                <br /><br />
+                        <label>Package (LPA)</label>
 
-                <input
-                    type="text"
-                    name="location"
-                    placeholder="Location"
-                    value={drive.location}
-                    onChange={handleChange}
-                    required
-                />
+                        <input
+                            type="number"
+                            step="0.1"
+                            name="packageOffered"
+                            value={drive.packageOffered}
+                            onChange={handleChange}
+                            placeholder="Eg. 8.5"
+                            required
+                        />
 
-                <br /><br />
+                    </div>
 
-                <button type="submit">
+                    <div className="form-group">
 
-                    Save Drive
+                        <label>Minimum CGPA</label>
 
-                </button>
+                        <input
+                            type="number"
+                            step="0.1"
+                            name="minCgpa"
+                            value={drive.minCgpa}
+                            onChange={handleChange}
+                            placeholder="Eg. 7.5"
+                            required
+                        />
 
-            </form>
+                    </div>
+
+                    <div className="form-group">
+
+                        <label>Department</label>
+
+                        <input
+                            type="text"
+                            name="department"
+                            value={drive.department}
+                            onChange={handleChange}
+                            placeholder="Enter Department"
+                            required
+                        />
+
+                    </div>
+
+                    <div className="form-group">
+
+                        <label>Maximum Backlogs</label>
+
+                        <input
+                            type="number"
+                            name="maxBacklogs"
+                            value={drive.maxBacklogs}
+                            onChange={handleChange}
+                            placeholder="Eg. 0"
+                            required
+                        />
+
+                    </div>
+
+                    <div className="form-group">
+
+                        <label>Drive Date</label>
+
+                        <input
+                            type="date"
+                            name="driveDate"
+                            value={drive.driveDate}
+                            onChange={handleChange}
+                            required
+                        />
+
+                    </div>
+
+                    <div className="form-group">
+
+                        <label>Location</label>
+
+                        <input
+                            type="text"
+                            name="location"
+                            value={drive.location}
+                            onChange={handleChange}
+                            placeholder="Enter Location"
+                            required
+                        />
+
+                    </div>
+
+                    <button
+                        className="save-drive-btn"
+                        type="submit"
+                    >
+                        Save Company Drive
+                    </button>
+
+                </form>
+
+            </div>
 
         </div>
 

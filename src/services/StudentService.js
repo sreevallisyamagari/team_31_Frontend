@@ -21,3 +21,9 @@ export const getNotifications = (studentId) => {
 export const getResults = (studentId) => {
     return axios.get(`${BASE_URL}/results/${studentId}`);
 };
+export const updateProfile = (id, profile) => {
+    return axios.put(
+        `http://localhost:8080/api/student/profile/${id}`,
+        profile
+    );
+};

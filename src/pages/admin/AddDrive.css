@@ -1,0 +1,92 @@
+.add-drive-container{
+    padding:30px;
+}
+
+.add-drive-card{
+    background:#fff;
+    border-radius:18px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    padding:35px;
+    max-width:950px;
+    margin:auto;
+}
+
+.add-drive-header{
+    margin-bottom:30px;
+}
+
+.add-drive-header h2{
+    font-size:34px;
+    color:#1f2937;
+    margin-bottom:8px;
+}
+
+.add-drive-header p{
+    color:#6b7280;
+    font-size:16px;
+}
+
+.drive-form{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:24px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    margin-bottom:8px;
+    font-weight:600;
+    color:#374151;
+}
+
+.form-group input{
+    padding:12px 15px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    font-size:15px;
+    transition:.3s;
+}
+
+.form-group input:focus{
+    outline:none;
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+.save-drive-btn{
+    grid-column:1/3;
+    width:240px;
+    justify-self:center;
+    margin-top:10px;
+    padding:14px;
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.save-drive-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+@media(max-width:768px){
+
+.drive-form{
+    grid-template-columns:1fr;
+}
+
+.save-drive-btn{
+    grid-column:1;
+    width:100%;
+}
+
+}
