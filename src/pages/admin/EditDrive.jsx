@@ -1,15 +1,14 @@
+
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-    getDriveById,
-    updateDrive
-} from "../../services/DriveService";
+import { useParams, useNavigate } from "react-router-dom";
+import { getDriveById, updateDrive } from "../../services/DriveService";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 function EditDrive() {
-
     const { id } = useParams();
-
     const navigate = useNavigate();
+    const [uploading, setUploading] = useState(false);
 
     const [drive, setDrive] = useState({
         companyName: "",
@@ -19,7 +18,10 @@ function EditDrive() {
         department: "",
         maxBacklogs: "",
         driveDate: "",
-        location: ""
+        location: "",
+        employmentType: "Full-Time",
+        jobDescription: "",
+        logoUrl: ""
     });
 
     useEffect(() => {
@@ -27,154 +29,204 @@ function EditDrive() {
     }, []);
 
     const loadDrive = async () => {
-
         try {
-
             const response = await getDriveById(id);
-
-            setDrive(response.data);
-
+            setDrive({
+                ...response.data,
+                employmentType: response.data.employmentType || "Full-Time",
+                jobDescription: response.data.jobDescription || "",
+                logoUrl: response.data.logoUrl || ""
+            });
         } catch (error) {
-
-            console.log(error);
-
+            toast.error("Failed to load drive details");
         }
-
     };
 
     const handleChange = (e) => {
-
         setDrive({
             ...drive,
             [e.target.name]: e.target.value
         });
-
     };
 
-    const updateCompanyDrive = async (e) => {
+    const handleLogoUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
 
-        e.preventDefault();
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("folder", "company_logos");
 
         try {
-
-            await updateDrive(id, drive);
-
-            alert("Drive Updated Successfully");
-
-            navigate("/company-drives");
-
+            setUploading(true);
+            const response = await axios.post("http://localhost:8080/api/upload", formData, {
+                headers: { "Content-Type": "multipart/form-data" }
+            });
+            setDrive({ ...drive, logoUrl: response.data.secure_url });
+            toast.success("Logo uploaded successfully!");
         } catch (error) {
-
-            console.log(error);
-
-            alert("Failed to Update Drive");
-
+            toast.error("Failed to upload logo.");
+        } finally {
+            setUploading(false);
         }
+    };
 
+    const saveDrive = async (e) => {
+        e.preventDefault();
+        try {
+            await updateDrive(id, drive);
+            toast.success("Company Drive Updated Successfully");
+            navigate("/company-drives");
+        } catch (error) {
+            toast.error("Failed to Update Drive");
+        }
     };
 
     return (
+        <div className="edit-drive-container">
+            <div className="edit-drive-card">
+                <div className="edit-drive-header">
+                    <h2>Edit Company Drive</h2>
+                    <p>Update placement opportunity details.</p>
+                </div>
 
-        <div style={{ padding: "30px" }}>
+                <form className="drive-form" onSubmit={saveDrive}>
+                    <div className="form-group">
+                        <label>Company Logo</label>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleLogoUpload}
+                            disabled={uploading}
+                        />
+                        {uploading && <small>Uploading logo...</small>}
+                        {drive.logoUrl && (
+                            <img src={drive.logoUrl} alt="Logo Preview" style={{ width: '80px', height: '80px', objectFit: 'contain', marginTop: '10px', border: '1px solid #ddd', padding: '5px', borderRadius: '8px' }} />
+                        )}
+                    </div>
 
-            <h2>Edit Company Drive</h2>
+                    <div className="form-group">
+                        <label>Company Name</label>
+                        <input
+                            type="text"
+                            name="companyName"
+                            value={drive.companyName}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-            <form onSubmit={updateCompanyDrive}>
+                    <div className="form-group">
+                        <label>Job Role</label>
+                        <input
+                            type="text"
+                            name="jobRole"
+                            value={drive.jobRole}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    
+                    <div className="form-group">
+                        <label>Employment Type</label>
+                        <select name="employmentType" value={drive.employmentType} onChange={handleChange}>
+                            <option value="Full-Time">Full-Time</option>
+                            <option value="Internship">Internship</option>
+                            <option value="Contract">Contract</option>
+                        </select>
+                    </div>
 
-                <input
-                    type="text"
-                    name="companyName"
-                    value={drive.companyName}
-                    onChange={handleChange}
-                    required
-                />
+                    <div className="form-group">
+                        <label>Package (LPA)</label>
+                        <input
+                            type="number"
+                            step="0.1"
+                            name="packageOffered"
+                            value={drive.packageOffered}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                <br /><br />
+                    <div className="form-group">
+                        <label>Minimum CGPA</label>
+                        <input
+                            type="number"
+                            step="0.1"
+                            name="minCgpa"
+                            value={drive.minCgpa}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                <input
-                    type="text"
-                    name="jobRole"
-                    value={drive.jobRole}
-                    onChange={handleChange}
-                    required
-                />
+                    <div className="form-group">
+                        <label>Department</label>
+                        <input
+                            type="text"
+                            name="department"
+                            value={drive.department}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                <br /><br />
+                    <div className="form-group">
+                        <label>Maximum Backlogs</label>
+                        <input
+                            type="number"
+                            name="maxBacklogs"
+                            value={drive.maxBacklogs}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                <input
-                    type="number"
-                    step="0.1"
-                    name="packageOffered"
-                    value={drive.packageOffered}
-                    onChange={handleChange}
-                    required
-                />
+                    <div className="form-group">
+                        <label>Drive Date</label>
+                        <input
+                            type="date"
+                            name="driveDate"
+                            value={drive.driveDate}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
 
-                <br /><br />
+                    <div className="form-group">
+                        <label>Location</label>
+                        <input
+                            type="text"
+                            name="location"
+                            value={drive.location}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    
+                    <div className="form-group">
+                        <label>Job Description</label>
+                        <textarea
+                            name="jobDescription"
+                            value={drive.jobDescription}
+                            onChange={handleChange}
+                            placeholder="Enter detailed job description, responsibilities, and requirements..."
+                            rows="5"
+                            style={{ width: "100%", padding: "12px", border: "1px solid #e2e8f0", borderRadius: "8px", fontFamily: "inherit" }}
+                        />
+                    </div>
 
-                <input
-                    type="number"
-                    step="0.1"
-                    name="minCgpa"
-                    value={drive.minCgpa}
-                    onChange={handleChange}
-                    required
-                />
-
-                <br /><br />
-
-                <input
-                    type="text"
-                    name="department"
-                    value={drive.department}
-                    onChange={handleChange}
-                    required
-                />
-
-                <br /><br />
-
-                <input
-                    type="number"
-                    name="maxBacklogs"
-                    value={drive.maxBacklogs}
-                    onChange={handleChange}
-                    required
-                />
-
-                <br /><br />
-
-                <input
-                    type="date"
-                    name="driveDate"
-                    value={drive.driveDate}
-                    onChange={handleChange}
-                    required
-                />
-
-                <br /><br />
-
-                <input
-                    type="text"
-                    name="location"
-                    value={drive.location}
-                    onChange={handleChange}
-                    required
-                />
-
-                <br /><br />
-
-                <button type="submit">
-
-                    Update Drive
-
-                </button>
-
-            </form>
-
+                    <button
+                        className="save-drive-btn"
+                        type="submit"
+                        disabled={uploading}
+                    >
+                        Update Company Drive
+                    </button>
+                </form>
+            </div>
         </div>
-
     );
-
 }
 
 export default EditDrive;

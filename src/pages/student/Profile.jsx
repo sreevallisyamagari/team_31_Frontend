@@ -43,19 +43,16 @@ function Profile() {
     };
 
     return (
-
         <div className="profile-container">
-
             <div className="profile-header">
-
-                <FaUserCircle className="profile-avatar" />
-
+                {profile.profilePictureUrl ? (
+                    <img src={profile.profilePictureUrl} alt={profile.name} className="profile-avatar-img" />
+                ) : (
+                    <FaUserCircle className="profile-avatar" />
+                )}
                 <h1>{profile.name || "Student Name"}</h1>
-
                 <p>{profile.department || "Department"}</p>
-
             </div>
-
             <div className="profile-grid">
 
                 <div className="profile-card">
@@ -101,11 +98,8 @@ function Profile() {
                     </div>
 
                     <div className="profile-item">
-
                         <FaExclamationCircle />
-
-                        <span>Backlogs : {profile.backlogs}</span>
-
+                        <span>Backlogs : {Math.max(0, profile.backlogs || 0)}</span>
                     </div>
 
                 </div>
@@ -114,29 +108,81 @@ function Profile() {
 
                     <h3>Resume</h3>
 
-                    <div className="profile-item">
+                    {
+                        profile.resume ? (
 
-                        <FaFilePdf />
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "180px"
+                                }}
+                            >
 
-                        <span>
+                                <FaFilePdf
+                                    size={60}
+                                    color="#dc3545"
+                                    style={{ marginBottom: "20px" }}
+                                />
 
-                            {profile.resume ? profile.resume : "Resume Not Uploaded"}
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        gap: "12px"
+                                    }}
+                                >
 
-                        </span>
+                                    <a
+                                        href={profile.resume}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="btn btn-primary"
+                                    >
+                                        View Resume
+                                    </a>
 
-                    </div>
+                                    <a
+                                        href={profile.resume}
+                                        download
+                                        className="btn btn-success"
+                                    >
+                                        Download
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        ) : (
+
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "180px",
+                                    color: "#777"
+                                }}
+                            >
+                                Resume Not Uploaded
+                            </div>
+
+                        )
+                    }
 
                 </div>
 
             </div>
 
             <button
-    className="edit-btn"
-    onClick={() => navigate("/edit-profile")}
->
-    <FaUserEdit />
-    Edit Profile
-</button>
+                className="edit-btn"
+                onClick={() => navigate("/edit-profile")}
+            >
+                <FaUserEdit />
+                Edit Profile
+            </button>
 
         </div>
 

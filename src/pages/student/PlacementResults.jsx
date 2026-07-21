@@ -6,7 +6,12 @@ import {
     FaSearch,
     FaCheckCircle,
     FaClock,
-    FaTimesCircle
+    FaTimesCircle,
+    FaMapMarkerAlt,
+    FaBriefcase,
+    FaMoneyBillWave,
+    FaCalendarAlt,
+    FaHashtag
 } from "react-icons/fa";
 
 import "./PlacementResults.css";
@@ -40,9 +45,11 @@ function PlacementResults() {
 
     const filteredResults = results.filter((result) => {
 
+        const driveId = result.drive?.id?.toString() || "";
+
         return (
             result.status.toLowerCase().includes(search.toLowerCase()) ||
-            result.driveId.toString().includes(search)
+            driveId.includes(search)
         );
 
     });
@@ -50,6 +57,42 @@ function PlacementResults() {
     const applied = results.filter(r => r.status === "Applied").length;
     const shortlisted = results.filter(r => r.status === "Shortlisted").length;
     const selected = results.filter(r => r.status === "Selected").length;
+
+    const getStatusBadge = (status) => {
+
+        switch (status) {
+
+            case "Selected":
+                return (
+                    <span className="selected">
+                        <FaCheckCircle /> Selected
+                    </span>
+                );
+
+            case "Shortlisted":
+                return (
+                    <span className="shortlisted">
+                        <FaCheckCircle /> Shortlisted
+                    </span>
+                );
+
+            case "Applied":
+                return (
+                    <span className="applied">
+                        <FaClock /> Applied
+                    </span>
+                );
+
+            default:
+                return (
+                    <span className="rejected">
+                        <FaTimesCircle /> Rejected
+                    </span>
+                );
+
+        }
+
+    };
 
     return (
 
@@ -117,7 +160,7 @@ function PlacementResults() {
                             <div className="card-header">
 
                                 <FaBuilding
-                                    size={35}
+                                    size={40}
                                     color="#2563eb"
                                 />
 
@@ -125,13 +168,13 @@ function PlacementResults() {
 
                                     <h3>
 
-                                        Application #{result.id}
+                                        {result.drive?.companyName}
 
                                     </h3>
 
                                     <p>
 
-                                        Drive ID : {result.driveId}
+                                        {result.drive?.jobRole}
 
                                     </p>
 
@@ -141,73 +184,95 @@ function PlacementResults() {
 
                             <div className="card-body">
 
-                                <strong>Status</strong>
+                                <div className="detail-row">
 
-                                <br /><br />
+                                    <FaHashtag />
 
-                                {
+                                    <span>
 
-                                    result.status === "Selected" &&
-
-                                    <span className="selected">
-
-                                        <FaCheckCircle />
+                                        <strong>Drive ID :</strong>
 
                                         {" "}
 
-                                        Selected
+                                        {result.drive?.id}
 
                                     </span>
 
-                                }
+                                </div>
 
-                                {
+                                <div className="detail-row">
 
-                                    result.status === "Shortlisted" &&
+                                    <FaBriefcase />
 
-                                    <span className="shortlisted">
+                                    <span>
 
-                                        <FaCheckCircle />
+                                        <strong>Job Role :</strong>
 
                                         {" "}
 
-                                        Shortlisted
+                                        {result.drive?.jobRole}
 
                                     </span>
 
-                                }
+                                </div>
 
-                                {
+                                <div className="detail-row">
 
-                                    result.status === "Applied" &&
+                                    <FaMoneyBillWave />
 
-                                    <span className="applied">
+                                    <span>
 
-                                        <FaClock />
+                                        <strong>Package :</strong>
 
                                         {" "}
 
-                                        Applied
+                                        {result.drive?.packageOffered} LPA
 
                                     </span>
 
-                                }
+                                </div>
 
-                                {
+                                <div className="detail-row">
 
-                                    result.status === "Rejected" &&
+                                    <FaMapMarkerAlt />
 
-                                    <span className="rejected">
+                                    <span>
 
-                                        <FaTimesCircle />
+                                        <strong>Location :</strong>
 
                                         {" "}
 
-                                        Rejected
+                                        {result.drive?.location}
 
                                     </span>
 
-                                }
+                                </div>
+
+                                <div className="detail-row">
+
+                                    <FaCalendarAlt />
+
+                                    <span>
+
+                                        <strong>Drive Date :</strong>
+
+                                        {" "}
+
+                                        {result.drive?.driveDate}
+
+                                    </span>
+
+                                </div>
+
+                                <div
+                                    style={{
+                                        marginTop: "20px"
+                                    }}
+                                >
+
+                                    {getStatusBadge(result.status)}
+
+                                </div>
 
                             </div>
 

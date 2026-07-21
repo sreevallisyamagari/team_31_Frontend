@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import {
     submitTicket,
@@ -48,7 +49,7 @@ function HelpSupport() {
             message
         });
 
-        alert("Support Ticket Submitted Successfully");
+        toast.success("Support Ticket Submitted Successfully");
 
         setSubject("");
         setMessage("");

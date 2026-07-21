@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -28,6 +29,8 @@ import AdminNotifications from "./pages/admin/AdminNotifications";
 import EditStudent from "./pages/admin/EditStudent";
 import Settings from "./pages/admin/Settings";
 import EditProfile from "./pages/student/EditProfile";
+import CompanyDriveDetails from "./pages/student/CompanyDriveDetails";
+import AddAdmin from "./pages/admin/AddAdmin";
 
 import AdminLayout from "./layouts/AdminLayout";
 
@@ -36,7 +39,7 @@ function App() {
     return (
 
         <BrowserRouter>
-
+            <Toaster position="top-right" />
             <Routes>
 
                 {/* Authentication */}
@@ -46,53 +49,58 @@ function App() {
 
                 {/* Student Layout */}
 
-<Route element={<StudentLayout />}>
+                <Route element={<StudentLayout />}>
 
-    <Route
-        path="/student"
-        element={<StudentDashboard />}
-    />
+                    <Route
+                        path="/student"
+                        element={<StudentDashboard />}
+                    />
 
-    <Route
-        path="/drives"
-        element={<CompanyDrives />}
-    />
+                    <Route
+                        path="/drives"
+                        element={<CompanyDrives />}
+                    />
+                    
+                    <Route
+                        path="/drives/:id"
+                        element={<CompanyDriveDetails />}
+                    />
 
-    <Route
-        path="/applications"
-        element={<MyApplications />}
-    />
-    <Route
-    path="/edit-profile"
-    element={<EditProfile />}
-/>
+                    <Route
+                        path="/applications"
+                        element={<MyApplications />}
+                    />
+                    <Route
+                        path="/edit-profile"
+                        element={<EditProfile />}
+                    />
 
-    <Route
-        path="/profile"
-        element={<Profile />}
-    />
+                    <Route
+                        path="/profile"
+                        element={<Profile />}
+                    />
 
-    <Route
-        path="/resume"
-        element={<Resume />}
-    />
+                    <Route
+                        path="/resume"
+                        element={<Resume />}
+                    />
 
-    <Route
-        path="/notifications"
-        element={<Notifications />}
-    />
+                    <Route
+                        path="/notifications"
+                        element={<Notifications />}
+                    />
 
-    <Route
-        path="/results"
-        element={<PlacementResults />}
-    />
+                    <Route
+                        path="/results"
+                        element={<PlacementResults />}
+                    />
 
-    <Route
-        path="/help"
-        element={<HelpSupport />}
-    />
+                    <Route
+                        path="/help"
+                        element={<HelpSupport />}
+                    />
 
-</Route>
+                </Route>
 
                 {/* Admin Layout */}
 
@@ -107,6 +115,7 @@ function App() {
                     <Route path="/add-drive" element={<AddDrive />} />
 
                     <Route path="/edit-drive/:id" element={<EditDrive />} />
+                    <Route path="/admin/add-admin" element={<AddAdmin />} />
 
                     <Route
                         path="/reports"

@@ -26,3 +26,25 @@ export const updateStudent = (id, student) => {
 export const deleteStudent = (id) => {
     return axios.delete(`${BASE_URL}/student/${id}`);
 };
+
+// =================== ADMIN MANAGEMENT ===================
+
+// Create Admin
+export const createAdmin = (admin) => {
+    return axios.post(`${BASE_URL}/create-admin`, admin);
+};
+
+// Get All Admins
+export const getAllAdmins = () => {
+    return axios.get(`${BASE_URL}/all-admins`);
+};
+
+// Update Admin
+export const updateAdmin = (id, admin) => {
+    return axios.put(`${BASE_URL}/update-admin/${id}`, admin);
+};
+
+// Delete Admin
+export const deleteAdmin = (id) => {
+    return axios.delete(`${BASE_URL}/delete-admin/${id}`);
+};

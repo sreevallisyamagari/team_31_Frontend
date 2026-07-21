@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -24,28 +25,26 @@ function EditStudent() {
     }, []);
 
     const loadStudent = async () => {
-
         try {
-
             const response = await getStudentById(id);
-
-            setStudent(response.data);
-
+            setStudent({
+                ...response.data,
+                backlogs: Math.max(0, response.data.backlogs || 0)
+            });
         } catch (error) {
-
             console.log(error);
-
         }
-
     };
 
     const handleChange = (e) => {
-
+        let val = e.target.value;
+        if (e.target.name === "backlogs") {
+            val = Math.max(0, parseInt(val) || 0);
+        }
         setStudent({
             ...student,
-            [e.target.name]: e.target.value
+            [e.target.name]: val
         });
-
     };
 
     const handleSubmit = async (e) => {
@@ -56,7 +55,7 @@ function EditStudent() {
 
             await updateStudent(id, student);
 
-            alert("Student Updated Successfully");
+            toast.success("Student Updated Successfully");
 
             navigate("/students");
 
@@ -110,6 +109,7 @@ function EditStudent() {
 
                 <input
                     type="number"
+                    min="0"
                     name="backlogs"
                     value={student.backlogs}
                     onChange={handleChange}

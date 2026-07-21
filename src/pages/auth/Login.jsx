@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import "./Login.css";
 
 import { useState } from "react";
@@ -27,9 +28,9 @@ function Login() {
                 password
             });
 
-            if (response.data.message !== "Login Successful") {
+            if(response.data.message !== "Login Successful") {
 
-                alert(response.data.message);
+                toast.error(response.data.message);
 
                 return;
 
@@ -39,7 +40,7 @@ function Login() {
             localStorage.setItem("userName", response.data.name);
             localStorage.setItem("userRole", response.data.role);
 
-            alert(response.data.message);
+            toast.success(response.data.message);
 
             if (response.data.role === "ADMIN") {
 
@@ -57,11 +58,11 @@ function Login() {
 
             if (error.response) {
 
-                alert(error.response.data.message || "Login Failed");
+                toast.error(error.response.data.message || "Login Failed");
 
             } else {
 
-                alert("Server Error");
+                toast.error("Server Error");
 
             }
 

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProfile, getDrives } from "../../services/StudentService";
 import { getStudentApplications } from "../../services/ApplicationService";
+import { getCompanyLogoUrl } from "../../utils/logoUtils";
 import {
     FaBriefcase,
     FaBuilding,
@@ -94,8 +95,7 @@ function StudentDashboard() {
     };
 
     const getAppliedDate = (app) => {
-        const day = 10 - (app.id % 5);
-        return `${day < 10 ? '0' + day : day} May 2025`;
+        return app.appliedDate || app.drive?.driveDate || "N/A";
     };
 
     const getNextRound = (status) => {
@@ -105,7 +105,7 @@ function StudentDashboard() {
             case "shortlisted":
                 return "Technical Interview";
             case "selected":
-                return "Offer Rolled Out 🎉";
+                return "Offer Rolled Out";
             case "rejected":
                 return "-";
             case "under review":
@@ -206,12 +206,21 @@ function StudentDashboard() {
                         upcomingDrives.slice(0, 3).map((drive) => {
                             const eligible = isEligible(drive);
                             const logoStyle = getCompanyLogoStyle(drive.companyName);
+                            const logo = getCompanyLogoUrl(drive.logoUrl, drive.companyName);
                             return (
                                 <div key={drive.id} className="upcoming-drive-card">
                                     <div className="drive-card-header">
-                                        <div className="company-logo-circle" style={logoStyle}>
-                                            {drive.companyName ? drive.companyName.substring(0, 2).toUpperCase() : "CO"}
-                                        </div>
+                                        {logo ? (
+                                            <img 
+                                                src={logo} 
+                                                alt={drive.companyName} 
+                                                style={{ width: '44px', height: '44px', borderRadius: '8px', objectFit: 'contain', border: '1px solid #e2e8f0', background: 'white', padding: '2px' }} 
+                                            />
+                                        ) : (
+                                            <div className="company-logo-circle" style={logoStyle}>
+                                                {drive.companyName ? drive.companyName.substring(0, 2).toUpperCase() : "CO"}
+                                            </div>
+                                        )}
                                         <div className="drive-company-info">
                                             <h4>{drive.companyName}</h4>
                                             <p>{drive.jobRole}</p>
@@ -233,7 +242,7 @@ function StudentDashboard() {
                                         </span>
                                         <button 
                                             className="details-btn"
-                                            onClick={() => navigate("/drives")}
+                                            onClick={() => navigate(`/drives/${drive.id}`)}
                                         >
                                             View Details
                                         </button>
@@ -271,27 +280,38 @@ function StudentDashboard() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {applications.slice(0, 3).map((app) => (
-                                    <tr key={app.id}>
-                                        <td className="company-cell">
-                                            <div 
-                                                className="company-mini-logo"
-                                                style={getCompanyLogoStyle(app.drive?.companyName)}
-                                            >
-                                                {app.drive?.companyName ? app.drive.companyName.substring(0, 2).toUpperCase() : "CO"}
-                                            </div>
-                                            <span className="company-name-text">{app.drive?.companyName || "N/A"}</span>
-                                        </td>
-                                        <td>{app.drive?.jobRole || "N/A"}</td>
-                                        <td>{getAppliedDate(app)}</td>
-                                        <td>
-                                            <span className={getStatusClass(app.status)}>
-                                                {app.status}
-                                            </span>
-                                        </td>
-                                        <td className="next-round-cell">{getNextRound(app.status)}</td>
-                                    </tr>
-                                ))}
+                                {applications.slice(0, 5).map((app) => {
+                                    const appLogo = getCompanyLogoUrl(app.drive?.logoUrl, app.drive?.companyName);
+                                    return (
+                                        <tr key={app.id}>
+                                            <td className="company-cell">
+                                                {appLogo ? (
+                                                    <img 
+                                                        src={appLogo} 
+                                                        alt={app.drive?.companyName} 
+                                                        style={{ width: '36px', height: '36px', borderRadius: '6px', objectFit: 'contain', border: '1px solid #e2e8f0', background: 'white', padding: '2px', marginRight: '12px' }} 
+                                                    />
+                                                ) : (
+                                                    <div 
+                                                        className="company-mini-logo"
+                                                        style={getCompanyLogoStyle(app.drive?.companyName)}
+                                                    >
+                                                        {app.drive?.companyName ? app.drive.companyName.substring(0, 2).toUpperCase() : "CO"}
+                                                    </div>
+                                                )}
+                                                <span className="company-name-text">{app.drive?.companyName || "N/A"}</span>
+                                            </td>
+                                            <td>{app.drive?.jobRole || "N/A"}</td>
+                                            <td>{getAppliedDate(app)}</td>
+                                            <td>
+                                                <span className={getStatusClass(app.status)}>
+                                                    {app.status}
+                                                </span>
+                                            </td>
+                                            <td className="next-round-cell">{getNextRound(app.status)}</td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     ) : (

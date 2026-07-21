@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -18,6 +19,8 @@ import {
 
 import "./ManageDrives.css";
 
+import { getCompanyLogoUrl } from "../../utils/logoUtils";
+
 function ManageDrives() {
 
     const [drives, setDrives] = useState([]);
@@ -27,108 +30,60 @@ function ManageDrives() {
     }, []);
 
     const loadDrives = async () => {
-
         try {
-
             const response = await getAllDrives();
-
             setDrives(response.data);
-
         } catch (error) {
-
             console.log(error);
-
         }
-
     };
 
     const removeDrive = async (id) => {
-
         if (!window.confirm("Delete this company drive?")) {
-
             return;
-
         }
 
         try {
-
             await deleteDrive(id);
-
-            alert("Drive Deleted Successfully");
-
+            toast.success("Drive Deleted Successfully");
             loadDrives();
-
         } catch (error) {
-
             console.log(error);
-
         }
-
     };
 
     return (
-
         <div className="manage-drives">
-
             <div className="drives-header">
-
                 <div>
-
                     <h1>Manage Company Drives</h1>
-
-                    <p>
-                        Create, update and manage placement drives.
-                    </p>
-
+                    <p>Create, update and manage placement drives.</p>
                 </div>
 
-                <Link
-                    to="/add-drive"
-                    className="add-btn"
-                >
-
-                    <FaPlus />
-
-                    Add Drive
-
+                <Link to="/add-drive" className="add-btn">
+                    <FaPlus /> Add Drive
                 </Link>
-
             </div>
 
-            {
-
-                drives.length === 0 ?
-
-                    <div className="no-drives">
-
-                        <h3>No Company Drives Available</h3>
-
-                        <p>
-                            Click "Add Drive" to create your first company drive.
-                        </p>
-
-                    </div>
-
-                    :
-
-                    <div className="drives-grid">
-
-                        {
-
-                            drives.map((drive) => (
-
-                                <div
-                                    key={drive.id}
-                                    className="drive-card"
-                                >
-
-                                    <div className="company-title">
-
+            {drives.length === 0 ? (
+                <div className="no-drives">
+                    <h3>No Company Drives Available</h3>
+                    <p>Click "Add Drive" to create your first company drive.</p>
+                </div>
+            ) : (
+                <div className="drives-grid">
+                    {drives.map((drive) => {
+                        const logo = getCompanyLogoUrl(drive.logoUrl, drive.companyName);
+                        return (
+                            <div key={drive.id} className="drive-card">
+                                <div className="company-title">
+                                    {logo ? (
+                                        <img src={logo} alt={drive.companyName} style={{ width: "36px", height: "36px", objectFit: "contain", borderRadius: "6px", background: "white", padding: "2px", border: "1px solid #e2e8f0" }} />
+                                    ) : (
                                         <FaBuilding />
-
-                                        <h2>{drive.companyName}</h2>
-
-                                    </div>
+                                    )}
+                                    <h2>{drive.companyName}</h2>
+                                </div>
 
                                     <p>
 
@@ -223,15 +178,11 @@ function ManageDrives() {
                                     </div>
 
                                 </div>
-
-                            ))
-
-                        }
+                            );
+                        })}
 
                     </div>
-
-            }
-
+            )}
         </div>
 
     );

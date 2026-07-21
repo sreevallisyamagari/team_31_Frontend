@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import {
     getAllTickets,
@@ -44,7 +45,7 @@ function AdminNotifications() {
 
             await markAsResolved(id);
 
-            alert("Ticket Resolved");
+            toast.success("Ticket Resolved");
 
             loadTickets();
 

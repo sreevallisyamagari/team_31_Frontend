@@ -73,7 +73,7 @@ function StudentDetails() {
 
                     <tr>
                         <td><b>Backlogs</b></td>
-                        <td>{student.backlogs}</td>
+                        <td>{Math.max(0, student.backlogs || 0)}</td>
                     </tr>
 
                     <tr>
@@ -84,15 +84,17 @@ function StudentDetails() {
                     <tr>
                         <td><b>Resume</b></td>
                         <td>
-
-                            <a
-                                href={`http://localhost:8080/uploads/${student.resume}`}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                View Resume
-                            </a>
-
+                            {student.resume ? (
+                                <a
+                                    href={student.resume}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    View Resume
+                                </a>
+                            ) : (
+                                <span>No Resume</span>
+                            )}
                         </td>
                     </tr>
 

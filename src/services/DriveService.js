@@ -6,6 +6,7 @@ const BASE_URL = "http://localhost:8080/api/drives";
 export const getAllDrives = () => {
     return axios.get(BASE_URL);
 };
+export const getDrives = getAllDrives;
 
 // View Drive By Id
 export const getDriveById = (id) => {

@@ -34,3 +34,16 @@ export const getApplicationsByStatus = (status) => {
 export const updateStatus = (id, status) => {
     return axios.put(`${BASE_URL}/${id}?status=${status}`);
 };
+
+// Bulk Update Status
+export const bulkUpdateStatus = (ids, status) => {
+    return axios.put(`${BASE_URL}/bulk-status?status=${status}`, ids);
+};
+
+// Alias for applyJob used in some components
+export const applyForDrive = (request) => {
+    return axios.post(BASE_URL, {
+        studentId: request.studentId,
+        driveId: request.driveId
+    });
+};

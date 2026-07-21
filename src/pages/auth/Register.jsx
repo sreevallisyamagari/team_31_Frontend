@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import "./Register.css";
 
 import { useState } from "react";
@@ -49,13 +50,13 @@ function Register() {
 
             const response = await register(student);
 
-            alert(response.data);
+            toast.success(response.data);
 
             navigate("/");
 
         } catch (error) {
 
-            alert("Registration Failed");
+            toast.error("Registration Failed");
 
             console.log(error);
 

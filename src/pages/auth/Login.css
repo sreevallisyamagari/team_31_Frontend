@@ -219,33 +219,26 @@ body{
 }
 
 .remember{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    cursor:pointer;
-
-    color:#475569;
-
-    font-size:14px;
-
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #475569;
+    font-weight: 500;
 }
 
 .remember input{
-
-    width:16px;
-
-    height:16px;
-
-    margin:0;
-
-    accent-color:#2563eb;
-
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    accent-color: #2563eb;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
+.remember span{
+    display: inline-block;
+}
 .forgot{
 
     color:#2563eb;

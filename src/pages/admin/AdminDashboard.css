@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Admin Dashboard Container
+    Admin Dashboard Container
    ========================================================================== */
 .admin-dashboard-container {
     display: flex;
@@ -10,7 +10,7 @@
 }
 
 /* ==========================================================================
-   Loader Styling
+    Loader Styling
    ========================================================================== */
 .admin-dashboard-loader {
     display: flex;
@@ -31,8 +31,13 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .admin-dashboard-loader span {
@@ -42,7 +47,7 @@
 }
 
 /* ==========================================================================
-   Statistics Cards
+    Statistics Cards
    ========================================================================== */
 .admin-stats-grid {
     display: grid;
@@ -104,28 +109,40 @@
     background: #eff6ff;
     color: #2563eb;
 }
-.admin-blue-theme:hover { border-color: #bfdbfe; }
+
+.admin-blue-theme:hover {
+    border-color: #bfdbfe;
+}
 
 .admin-green-theme .admin-stat-icon-wrapper {
     background: #f0fdf4;
     color: #16a34a;
 }
-.admin-green-theme:hover { border-color: #bbf7d0; }
+
+.admin-green-theme:hover {
+    border-color: #bbf7d0;
+}
 
 .admin-purple-theme .admin-stat-icon-wrapper {
     background: #faf5ff;
     color: #8b5cf6;
 }
-.admin-purple-theme:hover { border-color: #e9d5ff; }
+
+.admin-purple-theme:hover {
+    border-color: #e9d5ff;
+}
 
 .admin-orange-theme .admin-stat-icon-wrapper {
     background: #fffbeb;
     color: #d97706;
 }
-.admin-orange-theme:hover { border-color: #fde68a; }
+
+.admin-orange-theme:hover {
+    border-color: #fde68a;
+}
 
 /* ==========================================================================
-   Dashboard Grid Layout
+    Dashboard Grid Layout
    ========================================================================== */
 .dashboard-layout-grid {
     display: grid;
@@ -140,7 +157,7 @@
 }
 
 /* ==========================================================================
-   Dashboard Blocks (Cards)
+    Dashboard Blocks (Cards)
    ========================================================================== */
 .dashboard-block {
     background: #ffffff;
@@ -180,7 +197,7 @@
 }
 
 /* ==========================================================================
-   Recent Drives Table
+    Recent Drives Table
    ========================================================================== */
 .table-wrapper {
     overflow-x: auto;
@@ -262,7 +279,7 @@
 }
 
 /* ==========================================================================
-   Applications Overview SVG Line Chart
+    Applications Overview SVG Line Chart
    ========================================================================== */
 .chart-container {
     position: relative;
@@ -283,7 +300,7 @@
 .chart-grid-line {
     stroke: #f1f5f9;
     stroke-width: 1;
-    stroke-dasharray: 4,4;
+    stroke-dasharray: 4, 4;
 }
 
 .chart-axis-text {
@@ -298,18 +315,34 @@
     stroke-linecap: round;
 }
 
-.chart-path.apps { stroke: #3b82f6; }
-.chart-path.shortlisted { stroke: #8b5cf6; }
-.chart-path.selected { stroke: #10b981; }
+.chart-path.apps {
+    stroke: #3b82f6;
+}
+
+.chart-path.shortlisted {
+    stroke: #8b5cf6;
+}
+
+.chart-path.selected {
+    stroke: #10b981;
+}
 
 .chart-dot {
     stroke-width: 2;
     fill: #ffffff;
 }
 
-.chart-dot.apps { stroke: #3b82f6; }
-.chart-dot.shortlisted { stroke: #8b5cf6; }
-.chart-dot.selected { stroke: #10b981; }
+.chart-dot.apps {
+    stroke: #3b82f6;
+}
+
+.chart-dot.shortlisted {
+    stroke: #8b5cf6;
+}
+
+.chart-dot.selected {
+    stroke: #10b981;
+}
 
 /* Chart Legend */
 .chart-legend {
@@ -334,12 +367,20 @@
     border-radius: 50%;
 }
 
-.legend-color-dot.apps { background: #3b82f6; }
-.legend-color-dot.shortlisted { background: #8b5cf6; }
-.legend-color-dot.selected { background: #10b981; }
+.legend-color-dot.apps {
+    background: #3b82f6;
+}
+
+.legend-color-dot.shortlisted {
+    background: #8b5cf6;
+}
+
+.legend-color-dot.selected {
+    background: #10b981;
+}
 
 /* ==========================================================================
-   Donut Chart (Status Overview)
+    Donut Chart (Status Overview)
    ========================================================================== */
 .donut-chart-wrapper {
     display: flex;
@@ -382,9 +423,17 @@
     border-radius: 4px;
 }
 
-.donut-legend-color.ongoing { background: #22c55e; }
-.donut-legend-color.upcoming { background: #3b82f6; }
-.donut-legend-color.completed { background: #94a3b8; }
+.donut-legend-color.ongoing {
+    background: #22c55e;
+}
+
+.donut-legend-color.upcoming {
+    background: #3b82f6;
+}
+
+.donut-legend-color.completed {
+    background: #94a3b8;
+}
 
 .donut-legend-right {
     font-weight: 700;
@@ -392,7 +441,7 @@
 }
 
 /* ==========================================================================
-   Recent Activities Timeline
+    Recent Activities Timeline
    ========================================================================== */
 .activity-timeline {
     display: flex;
@@ -429,7 +478,7 @@
     align-items: center;
     font-size: 11px;
     z-index: 1;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .activity-details {
@@ -458,7 +507,7 @@
 }
 
 /* ==========================================================================
-   Quick Actions Row
+    Quick Actions Row
    ========================================================================== */
 .quick-actions-bar {
     display: grid;
@@ -487,46 +536,61 @@
     border: 1.5px solid #2563eb;
     color: #2563eb;
 }
-.quick-action-btn.outline-blue:hover { background: #eff6ff; }
+
+.quick-action-btn.outline-blue:hover {
+    background: #eff6ff;
+}
 
 .quick-action-btn.outline-green {
     background: #ffffff;
     border: 1.5px solid #16a34a;
     color: #16a34a;
 }
-.quick-action-btn.outline-green:hover { background: #f0fdf4; }
+
+.quick-action-btn.outline-green:hover {
+    background: #f0fdf4;
+}
 
 .quick-action-btn.outline-purple {
     background: #ffffff;
     border: 1.5px solid #8b5cf6;
     color: #8b5cf6;
 }
-.quick-action-btn.outline-purple:hover { background: #faf5ff; }
+
+.quick-action-btn.outline-purple:hover {
+    background: #faf5ff;
+}
 
 .quick-action-btn.solid-orange {
     background: #f97316;
     color: #ffffff;
 }
-.quick-action-btn.solid-orange:hover { background: #ea580c; }
+
+.quick-action-btn.solid-orange:hover {
+    background: #ea580c;
+}
 
 .quick-action-btn.solid-blue {
     background: #2563eb;
     color: #ffffff;
 }
-.quick-action-btn.solid-blue:hover { background: #1d4ed8; }
 
-/* ==========================================================================
-   Responsive Breakpoints
+.quick-action-btn.solid-blue:hover {
+    background: #1d4ed8;
+}
+
+/*  ==========================================================================
+    Responsive Breakpoints
    ========================================================================== */
 @media (max-width: 1200px) {
     .admin-stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .dashboard-layout-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .quick-actions-bar {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -536,11 +600,11 @@
     .admin-stats-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .quick-actions-bar {
         grid-template-columns: 1fr;
     }
-    
+
     .donut-chart-wrapper {
         flex-direction: column;
     }

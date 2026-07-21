@@ -20,7 +20,8 @@ import {
     FaChartBar,
     FaBell,
     FaCog,
-    FaSignOutAlt
+    FaSignOutAlt,
+    FaUserShield
 } from "react-icons/fa";
 
 function AdminLayout() {
@@ -104,6 +105,11 @@ function AdminLayout() {
             path: "/notifications-admin",
             icon: <FaBell />
         },
+        {
+    name: "Manage Admins",
+    path: "/admin/add-admin",
+    icon: <FaUserShield />
+},
 
         {
             name: "Settings",

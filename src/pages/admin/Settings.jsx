@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +22,7 @@ function Settings() {
 
         if (password === "") {
 
-            alert("Enter New Password");
+            toast.error("Enter New Password");
 
             return;
 
@@ -29,7 +30,7 @@ function Settings() {
 
         // Backend API can be added later
 
-        alert("Password Changed Successfully");
+        toast.success("Password Changed Successfully");
 
         setPassword("");
 

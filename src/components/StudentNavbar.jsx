@@ -240,21 +240,46 @@ function StudentNavbar() {
                             width: "38px",
                             height: "38px",
                             borderRadius: "50%",
-                            background: "linear-gradient(135deg, #eff6ff, #dbeafe)",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            color: "#2563eb",
-                            fontWeight: "700",
-                            fontSize: "14px",
+                            overflow: "hidden",
                             border: "1px solid #bfdbfe",
                             boxShadow: "0 2px 4px rgba(37,99,235,0.05)"
                         }}
                     >
-                        {profile?.name ? (
-                            profile.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase()
+                        {profile?.profilePictureUrl ? (
+                            <img
+                                src={profile.profilePictureUrl}
+                                alt={profile.name}
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "cover"
+                                }}
+                            />
+                        ) : profile?.name ? (
+                            <div
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    background: "linear-gradient(135deg,#eff6ff,#dbeafe)",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    color: "#2563eb",
+                                    fontWeight: "700"
+                                }}
+                            >
+                                {profile.name
+                                    .split(" ")
+                                    .map(n => n[0])
+                                    .join("")
+                                    .substring(0, 2)
+                                    .toUpperCase()}
+                            </div>
                         ) : (
-                            <FaUserCircle size={38} color="#cbd5e1" />
+                            <FaUserCircle
+                                size={38}
+                                color="#cbd5e1"
+                            />
                         )}
                     </div>
                     <div
