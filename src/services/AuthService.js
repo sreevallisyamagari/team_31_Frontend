@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/api/auth";
+const BASE_URL = "https://team31backend-production.up.railway.app/api/auth";
 
 // Login
 export const login = (loginData) => {

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/api/student";
+const BASE_URL = "https://team31backend-production.up.railway.app/api/student";
 
 export const getProfile = (id) => {
     return axios.get(`${BASE_URL}/profile/${id}`);

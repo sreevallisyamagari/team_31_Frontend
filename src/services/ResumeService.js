@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/api/resume";
+const BASE_URL = "https://team31backend-production.up.railway.app/api/resume";
 
 export const uploadResume = (studentId, file) => {
 

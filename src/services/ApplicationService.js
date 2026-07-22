@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/api/applications";
+const BASE_URL = "https://team31backend-production.up.railway.app/api/applications";
 
 // Student Apply
 export const applyJob = (studentId, driveId) => {

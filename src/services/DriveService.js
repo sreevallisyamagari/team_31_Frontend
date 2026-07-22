@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/api/drives";
+const BASE_URL = "https://team31backend-production.up.railway.app/api/drives";
 
 // View All Drives
 export const getAllDrives = () => {
